@@ -82,8 +82,16 @@
   }
 
   body {
-    @apply bg-dashboard-dark text-foreground;
+    @apply bg-background text-foreground;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  .light body {
+    @apply bg-white;
+  }
+  
+  .dark body {
+    @apply bg-dashboard-dark;
   }
 
   /* Custom scrollbar */
@@ -107,6 +115,10 @@
 @layer components {
   .dashboard-card {
     @apply bg-dashboard-card rounded-xl backdrop-blur-sm border border-white/5 shadow-lg transition-all duration-300;
+  }
+
+  .light .dashboard-card {
+    @apply bg-white border-gray-200 shadow-md;
   }
 
   .status-badge {
@@ -137,8 +149,16 @@
     @apply inline-block h-8 w-8 rounded-full ring-2 ring-dashboard-card;
   }
 
+  .light .avatar-stack img {
+    @apply ring-white;
+  }
+
   .progress-bar {
     @apply h-2 rounded-full overflow-hidden bg-gray-700/30;
+  }
+
+  .light .progress-bar {
+    @apply bg-gray-200;
   }
 
   .progress-bar-fill {
@@ -147,6 +167,10 @@
 
   .table-row {
     @apply border-b border-white/5 transition-colors hover:bg-white/5;
+  }
+
+  .light .table-row {
+    @apply border-gray-200 hover:bg-gray-100;
   }
 }
 
