@@ -45,6 +45,7 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
                 dataKey="value"
                 label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                 labelLine={false}
+                strokeWidth={3}
               >
                 {pieData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
