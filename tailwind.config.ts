@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -27,7 +26,6 @@ export default {
         foreground: "hsl(var(--foreground))",
         dashboard: {
           dark: "var(--dashboard-dark)",
-          // Use rgb format to support opacity modifiers
           card: "rgb(var(--dashboard-card-rgb) / <alpha-value>)",
           highlight: "#3e7bfa",
           green: "#4adb61",

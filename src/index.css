@@ -160,7 +160,7 @@
   }
 
   .progress-bar {
-    @apply h-2 rounded-full overflow-hidden bg-gray-700/30 dark:bg-gray-700/30 light:bg-gray-200;
+    @apply h-2 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700/30;
   }
 
   .progress-bar-fill {
