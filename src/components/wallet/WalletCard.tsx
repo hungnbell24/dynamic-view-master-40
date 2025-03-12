@@ -23,25 +23,28 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
 
   return (
     <div className="dashboard-card p-5 animate-slide-up opacity-0 animation-delay-200">
-      <div className="flex items-center justify-between mb-5">
-        <h3 className="text-lg font-medium text-dashboard-text">{title}</h3>
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-xl font-medium text-dashboard-text">{title}</h3>
         <button className="text-dashboard-text-secondary hover:text-dashboard-text transition-colors">
           <MoreHorizontal size={20} />
         </button>
       </div>
       
-      <div className="flex flex-col md:flex-row items-center justify-between">
-        <div className="w-full md:w-1/2 h-60 md:h-44">
+      <div className="flex flex-col space-y-8">
+        {/* Larger pie chart */}
+        <div className="w-full h-72 mx-auto">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={pieData}
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
-                outerRadius={80}
+                innerRadius={70}
+                outerRadius={100}
                 paddingAngle={5}
                 dataKey="value"
+                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                labelLine={false}
               >
                 {pieData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
@@ -51,7 +54,8 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
           </ResponsiveContainer>
         </div>
         
-        <div className="w-full md:w-1/2 grid grid-cols-1 gap-4 mt-4 md:mt-0">
+        {/* Data grid below the chart */}
+        <div className="grid grid-cols-2 gap-6 mt-4">
           <div className="flex flex-col space-y-1">
             <div className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</div>
             <div className="text-sm text-dashboard-text-secondary">Month Revenue</div>
