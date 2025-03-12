@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -46,6 +45,7 @@
     
     --dashboard-dark: 220 30% 96%;
     --dashboard-card: 220 30% 99%;
+    --dashboard-card-rgb: 245, 247, 250;
     --dashboard-text: 222 47% 11%;
     --dashboard-text-secondary: 215 16% 47%;
     --dashboard-border: 214 32% 91%;
@@ -91,6 +91,7 @@
     
     --dashboard-dark: #131920;
     --dashboard-card: #1a212c;
+    --dashboard-card-rgb: 26, 33, 44;
     --dashboard-text: 210 40% 98%;
     --dashboard-text-secondary: 215 20% 65%;
     --dashboard-border: 217 33% 18%;
