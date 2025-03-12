@@ -132,7 +132,7 @@ const Index = () => {
           actionLabel="Continue"
           action={() => {
             toast.info('Analyzing account performance...', {
-              description: 'We'll have recommendations for you soon',
+              description: "We'll have recommendations for you soon"
             });
           }}
         />
