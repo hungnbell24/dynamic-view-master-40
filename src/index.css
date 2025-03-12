@@ -35,14 +35,20 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 215 26% 10%;
-    --sidebar-foreground: 240 5.3% 85%;
+    --sidebar-background: 215 26% 85%;
+    --sidebar-foreground: 240 5.3% 25%;
     --sidebar-primary: 220 90% 61%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 222 30% 20%;
-    --sidebar-accent-foreground: 240 5.3% 85%;
-    --sidebar-border: 222 30% 15%;
+    --sidebar-accent: 222 30% 80%;
+    --sidebar-accent-foreground: 240 5.3% 25%;
+    --sidebar-border: 222 30% 85%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    --dashboard-dark: 220 30% 96%;
+    --dashboard-card: 220 30% 99%;
+    --dashboard-text: 222 47% 11%;
+    --dashboard-text-secondary: 215 16% 47%;
+    --dashboard-border: 214 32% 91%;
   }
 
   .dark {
@@ -73,6 +79,21 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+    
+    --sidebar-background: 215 26% 10%;
+    --sidebar-foreground: 240 5.3% 85%;
+    --sidebar-primary: 220 90% 61%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 222 30% 20%;
+    --sidebar-accent-foreground: 240 5.3% 85%;
+    --sidebar-border: 222 30% 15%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    --dashboard-dark: #131920;
+    --dashboard-card: #1a212c;
+    --dashboard-text: 210 40% 98%;
+    --dashboard-text-secondary: 215 20% 65%;
+    --dashboard-border: 217 33% 18%;
   }
 }
 
@@ -84,14 +105,6 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
-  }
-
-  .light body {
-    @apply bg-white;
-  }
-  
-  .dark body {
-    @apply bg-dashboard-dark;
   }
 
   /* Custom scrollbar */
@@ -114,11 +127,7 @@
 
 @layer components {
   .dashboard-card {
-    @apply bg-dashboard-card rounded-xl backdrop-blur-sm border border-white/5 shadow-lg transition-all duration-300;
-  }
-
-  .light .dashboard-card {
-    @apply bg-white border-gray-200 shadow-md;
+    @apply bg-dashboard-card rounded-xl backdrop-blur-sm border border-dashboard-border shadow-lg transition-all duration-300;
   }
 
   .status-badge {
@@ -149,16 +158,8 @@
     @apply inline-block h-8 w-8 rounded-full ring-2 ring-dashboard-card;
   }
 
-  .light .avatar-stack img {
-    @apply ring-white;
-  }
-
   .progress-bar {
-    @apply h-2 rounded-full overflow-hidden bg-gray-700/30;
-  }
-
-  .light .progress-bar {
-    @apply bg-gray-200;
+    @apply h-2 rounded-full overflow-hidden bg-gray-700/30 dark:bg-gray-700/30 light:bg-gray-200;
   }
 
   .progress-bar-fill {
@@ -166,11 +167,7 @@
   }
 
   .table-row {
-    @apply border-b border-white/5 transition-colors hover:bg-white/5;
-  }
-
-  .light .table-row {
-    @apply border-gray-200 hover:bg-gray-100;
+    @apply border-b border-dashboard-border transition-colors hover:bg-dashboard-card/70;
   }
 }
 

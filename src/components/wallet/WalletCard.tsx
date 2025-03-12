@@ -24,8 +24,8 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
   return (
     <div className="dashboard-card p-5 animate-slide-up opacity-0 animation-delay-200">
       <div className="flex items-center justify-between mb-5">
-        <h3 className="text-lg font-medium text-white">{title}</h3>
-        <button className="text-gray-400 hover:text-white transition-colors">
+        <h3 className="text-lg font-medium text-dashboard-text">{title}</h3>
+        <button className="text-dashboard-text-secondary hover:text-dashboard-text transition-colors">
           <MoreHorizontal size={20} />
         </button>
       </div>
@@ -53,23 +53,23 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
         
         <div className="w-full md:w-1/2 grid grid-cols-1 gap-4 mt-4 md:mt-0">
           <div className="flex flex-col space-y-1">
-            <div className="text-lg font-semibold text-white">${data.revenue.toFixed(2)}</div>
-            <div className="text-sm text-gray-400">Month Revenue</div>
+            <div className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</div>
+            <div className="text-sm text-dashboard-text-secondary">Month Revenue</div>
           </div>
           
           <div className="flex flex-col space-y-1">
-            <div className="text-lg font-semibold text-white">${data.income.toFixed(2)}</div>
-            <div className="text-sm text-gray-400">Month Income</div>
+            <div className="text-lg font-semibold text-dashboard-text">${data.income.toFixed(2)}</div>
+            <div className="text-sm text-dashboard-text-secondary">Month Income</div>
           </div>
           
           <div className="flex flex-col space-y-1">
-            <div className="text-lg font-semibold text-white">${data.roi.toFixed(2)}</div>
-            <div className="text-sm text-gray-400">Month ROI</div>
+            <div className="text-lg font-semibold text-dashboard-text">${data.roi.toFixed(2)}</div>
+            <div className="text-sm text-dashboard-text-secondary">Month ROI</div>
           </div>
           
           <div className="flex flex-col space-y-1">
-            <div className="text-lg font-semibold text-white">${data.expenses.toFixed(2)}</div>
-            <div className="text-sm text-gray-400">Month Expenses</div>
+            <div className="text-lg font-semibold text-dashboard-text">${data.expenses.toFixed(2)}</div>
+            <div className="text-sm text-dashboard-text-secondary">Month Expenses</div>
           </div>
         </div>
       </div>

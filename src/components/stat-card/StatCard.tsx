@@ -17,10 +17,10 @@ const StatCard: React.FC<StatCardProps> = ({ icon, amount, label, className }) =
     )}>
       <div className="flex items-start justify-between">
         <div className="space-y-2">
-          <div className="text-2xl font-bold text-white">{amount}</div>
-          <div className="text-sm text-gray-400">{label}</div>
+          <div className="text-2xl font-bold text-dashboard-text">{amount}</div>
+          <div className="text-sm text-dashboard-text-secondary">{label}</div>
         </div>
-        <div className="text-gray-400">{icon}</div>
+        <div className="text-dashboard-text-secondary">{icon}</div>
       </div>
     </div>
   );

@@ -26,12 +26,15 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         dashboard: {
-          dark: "#131920",
-          card: "#1a212c",
+          dark: "var(--dashboard-dark)",
+          card: "var(--dashboard-card)",
           highlight: "#3e7bfa",
           green: "#4adb61",
           purple: "#bc5af5",
           orange: "#ff9046",
+          text: "hsl(var(--dashboard-text))",
+          "text-secondary": "hsl(var(--dashboard-text-secondary))",
+          border: "hsl(var(--dashboard-border))",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",

@@ -19,8 +19,8 @@ const TeamSection: React.FC<TeamSectionProps> = ({ title, members }) => {
   return (
     <div className="dashboard-card p-5 animate-slide-up opacity-0 animation-delay-200">
       <div className="flex items-center justify-between mb-5">
-        <h3 className="text-lg font-medium text-white">{title}</h3>
-        <button className="text-gray-400 hover:text-white transition-colors">
+        <h3 className="text-lg font-medium text-dashboard-text">{title}</h3>
+        <button className="text-dashboard-text-secondary hover:text-dashboard-text transition-colors">
           <MoreHorizontal size={20} />
         </button>
       </div>
@@ -29,7 +29,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({ title, members }) => {
         {members.map((member) => (
           <div key={member.id} className="flex items-center justify-between py-2">
             <div className="flex items-center space-x-3">
-              <div className="h-10 w-10 rounded-full bg-gray-600 overflow-hidden">
+              <div className="h-10 w-10 rounded-full bg-dashboard-highlight/20 overflow-hidden">
                 <img 
                   src={member.avatar} 
                   alt={member.name} 
@@ -37,15 +37,15 @@ const TeamSection: React.FC<TeamSectionProps> = ({ title, members }) => {
                 />
               </div>
               <div>
-                <p className="text-sm font-medium text-white">{member.name}</p>
-                <p className="text-xs text-gray-400">{member.role}</p>
+                <p className="text-sm font-medium text-dashboard-text">{member.name}</p>
+                <p className="text-xs text-dashboard-text-secondary">{member.role}</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <div className={`status-badge ${member.status === 'online' ? 'online' : ''}`}>
                 Online
               </div>
-              <button className="text-gray-400 hover:text-white transition-colors">
+              <button className="text-dashboard-text-secondary hover:text-dashboard-text transition-colors">
                 <ChevronRight size={18} />
               </button>
             </div>

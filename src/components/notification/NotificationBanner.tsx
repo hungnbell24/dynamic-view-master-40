@@ -23,14 +23,14 @@ const NotificationBanner: React.FC<NotificationBannerProps> = ({
             <AlertCircle className="h-5 w-5 text-dashboard-highlight" />
           </div>
           <div>
-            <p className="text-white font-medium">{title}</p>
-            <p className="text-gray-400 text-sm">{description}</p>
+            <p className="text-dashboard-text font-medium">{title}</p>
+            <p className="text-dashboard-text-secondary text-sm">{description}</p>
           </div>
         </div>
         
         <button 
           onClick={action}
-          className="flex items-center space-x-1 text-dashboard-highlight hover:text-white transition-colors"
+          className="flex items-center space-x-1 text-dashboard-highlight hover:text-dashboard-text transition-colors"
         >
           <span className="text-sm font-medium">{actionLabel}</span>
           <ChevronRight size={16} />
