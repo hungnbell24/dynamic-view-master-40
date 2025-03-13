@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import { Input } from '@/components/ui/input';
@@ -116,23 +115,17 @@ const EmailPage: React.FC = () => {
   const getFilteredEmails = () => {
     let filtered = [...emails];
     
-    // Filter by tab
     if (selectedTab === 'inbox') {
-      // Show all emails in inbox
     } else if (selectedTab === 'starred') {
       filtered = filtered.filter(email => email.isStarred);
     } else if (selectedTab === 'sent') {
-      // In a real app, this would show sent emails
       filtered = [];
     } else if (selectedTab === 'drafts') {
-      // In a real app, this would show drafts
       filtered = [];
     } else if (selectedTab === 'trash') {
-      // In a real app, this would show deleted emails
       filtered = [];
     }
     
-    // Apply search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -197,7 +190,6 @@ const EmailPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          {/* Sidebar */}
           <div className="lg:col-span-1 dashboard-card p-4 animate-slide-up opacity-0">
             <Button 
               onClick={composeEmail} 
@@ -213,6 +205,7 @@ const EmailPage: React.FC = () => {
               orientation="vertical" 
               className="w-full"
               onValueChange={setSelectedTab}
+              value={selectedTab}
             >
               <TabsList className="flex flex-col h-auto w-full bg-transparent space-y-1">
                 <TabsTrigger 
@@ -268,10 +261,15 @@ const EmailPage: React.FC = () => {
                   </div>
                 </TabsTrigger>
               </TabsList>
+              
+              <TabsContent value="inbox" className="mt-0 hidden lg:block"></TabsContent>
+              <TabsContent value="starred" className="mt-0 hidden lg:block"></TabsContent>
+              <TabsContent value="sent" className="mt-0 hidden lg:block"></TabsContent>
+              <TabsContent value="drafts" className="mt-0 hidden lg:block"></TabsContent>
+              <TabsContent value="trash" className="mt-0 hidden lg:block"></TabsContent>
             </Tabs>
           </div>
           
-          {/* Email List */}
           <div className="lg:col-span-4 dashboard-card p-4 animate-slide-up opacity-0 animation-delay-100">
             <div className="flex items-center mb-4 gap-2">
               <div className="relative flex-grow">
@@ -288,87 +286,89 @@ const EmailPage: React.FC = () => {
               </Button>
             </div>
             
-            <TabsContent value={selectedTab} className="m-0">
-              <div className="space-y-1">
-                {getFilteredEmails().length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
-                    <Mail className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                    <p>No emails found</p>
-                  </div>
-                ) : (
-                  getFilteredEmails().map((email) => (
-                    <div
-                      key={email.id}
-                      className={`
-                        group relative p-3 rounded-lg cursor-pointer transition-colors
-                        ${email.isRead ? 'bg-transparent' : 'bg-blue-50 dark:bg-blue-950/20'}
-                        hover:bg-slate-100 dark:hover:bg-slate-800
-                      `}
-                      onClick={() => markAsRead(email.id)}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="flex-shrink-0">
-                          <Avatar>
-                            <img src={email.from.avatar} alt={email.from.name} />
-                          </Avatar>
-                        </div>
-                        
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center justify-between">
-                            <p className={`text-sm font-medium truncate ${email.isRead ? '' : 'font-bold'}`}>
-                              {email.from.name}
-                            </p>
-                            <p className="text-xs text-muted-foreground">{email.date}</p>
+            <Tabs value={selectedTab}>
+              <TabsContent value={selectedTab} className="m-0">
+                <div className="space-y-1">
+                  {getFilteredEmails().length === 0 ? (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <Mail className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                      <p>No emails found</p>
+                    </div>
+                  ) : (
+                    getFilteredEmails().map((email) => (
+                      <div
+                        key={email.id}
+                        className={`
+                          group relative p-3 rounded-lg cursor-pointer transition-colors
+                          ${email.isRead ? 'bg-transparent' : 'bg-blue-50 dark:bg-blue-950/20'}
+                          hover:bg-slate-100 dark:hover:bg-slate-800
+                        `}
+                        onClick={() => markAsRead(email.id)}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="flex-shrink-0">
+                            <Avatar>
+                              <img src={email.from.avatar} alt={email.from.name} />
+                            </Avatar>
                           </div>
                           
-                          <p className={`text-sm truncate ${email.isRead ? '' : 'font-semibold'}`}>
-                            {email.subject}
-                          </p>
-                          
-                          <p className="text-xs text-muted-foreground truncate">
-                            {email.preview}
-                          </p>
-                          
-                          {email.labels && email.labels.length > 0 && (
-                            <div className="flex gap-1 mt-1">
-                              {email.labels.map(label => (
-                                <Badge key={label} variant="outline" className="text-xs">
-                                  {label}
-                                </Badge>
-                              ))}
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between">
+                              <p className={`text-sm font-medium truncate ${email.isRead ? '' : 'font-bold'}`}>
+                                {email.from.name}
+                              </p>
+                              <p className="text-xs text-muted-foreground">{email.date}</p>
                             </div>
-                          )}
+                            
+                            <p className={`text-sm truncate ${email.isRead ? '' : 'font-semibold'}`}>
+                              {email.subject}
+                            </p>
+                            
+                            <p className="text-xs text-muted-foreground truncate">
+                              {email.preview}
+                            </p>
+                            
+                            {email.labels && email.labels.length > 0 && (
+                              <div className="flex gap-1 mt-1">
+                                {email.labels.map(label => (
+                                  <Badge key={label} variant="outline" className="text-xs">
+                                    {label}
+                                  </Badge>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="flex items-center gap-2">
+                            <button
+                              className={`text-yellow-500 ${email.isStarred ? 'opacity-100' : 'opacity-30 hover:opacity-100'}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleStar(email.id);
+                              }}
+                            >
+                              <Star className="h-4 w-4" fill={email.isStarred ? "currentColor" : "none"} />
+                            </button>
+                            
+                            <button
+                              className="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                deleteEmail(email.id);
+                              }}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
                         </div>
                         
-                        <div className="flex items-center gap-2">
-                          <button
-                            className={`text-yellow-500 ${email.isStarred ? 'opacity-100' : 'opacity-30 hover:opacity-100'}`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleStar(email.id);
-                            }}
-                          >
-                            <Star className="h-4 w-4" fill={email.isStarred ? "currentColor" : "none"} />
-                          </button>
-                          
-                          <button
-                            className="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              deleteEmail(email.id);
-                            }}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </div>
+                        <Separator className="mt-3" />
                       </div>
-                      
-                      <Separator className="mt-3" />
-                    </div>
-                  ))
-                )}
-              </div>
-            </TabsContent>
+                    ))
+                  )}
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </div>
