@@ -39,9 +39,9 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
                 data={pieData}
                 cx="50%"
                 cy="50%"
-                innerRadius={70}
-                outerRadius={100}
-                paddingAngle={5}
+                innerRadius={60}
+                outerRadius={120}
+                paddingAngle={2}
                 dataKey="value"
                 label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                 labelLine={false}
