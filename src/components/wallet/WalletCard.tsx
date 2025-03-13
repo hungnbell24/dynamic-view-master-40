@@ -30,17 +30,17 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
         </button>
       </div>
       
-      <div className="flex flex-col space-y-8">
-        {/* Larger pie chart */}
-        <div className="w-full h-72 mx-auto">
+      <div className="flex flex-row space-x-4">
+        {/* Smaller pie chart on the left */}
+        <div className="w-1/2 h-64">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={pieData}
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
-                outerRadius={120}
+                innerRadius={50}
+                outerRadius={90}
                 paddingAngle={2}
                 dataKey="value"
                 label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
@@ -55,8 +55,8 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
           </ResponsiveContainer>
         </div>
         
-        {/* Data grid below the chart */}
-        <div className="grid grid-cols-2 gap-6 mt-4">
+        {/* Data statistics in a vertical line next to the chart */}
+        <div className="w-1/2 flex flex-col justify-center space-y-4">
           <div className="flex flex-col space-y-1">
             <div className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</div>
             <div className="text-sm text-dashboard-text-secondary">Month Revenue</div>
