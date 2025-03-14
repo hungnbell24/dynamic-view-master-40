@@ -1,6 +1,11 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { MoreHorizontal, Edit, Trash } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
 
 interface User {
   id: number;
@@ -18,6 +23,34 @@ interface UsersTableProps {
 }
 
 const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const form = useForm<User>({
+    defaultValues: editingUser || {
+      id: 0,
+      name: '',
+      progress: 0,
+      status: 'automatic',
+      avatars: [],
+      count: 0,
+      role: '',
+      subRole: ''
+    }
+  });
+
+  const handleEditClick = (user: User) => {
+    setEditingUser(user);
+    form.reset(user);
+    setIsEditModalOpen(true);
+  };
+
+  const onSubmit = (data: User) => {
+    console.log('Updated user:', data);
+    // Here you would typically update the user in your data source
+    setIsEditModalOpen(false);
+  };
+
   return (
     <div className="dashboard-card p-5 animate-slide-up opacity-0 animation-delay-300">
       <div className="flex items-center justify-between mb-5">
@@ -91,7 +124,10 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
                 </td>
                 <td className="py-3 pl-2">
                   <div className="flex items-center space-x-2 justify-end">
-                    <button className="p-1.5 rounded-md hover:bg-dashboard-highlight/10 text-dashboard-text-secondary hover:text-dashboard-text transition-colors">
+                    <button 
+                      className="p-1.5 rounded-md hover:bg-dashboard-highlight/10 text-dashboard-text-secondary hover:text-dashboard-text transition-colors"
+                      onClick={() => handleEditClick(user)}
+                    >
                       <Edit size={16} />
                     </button>
                     <button className="p-1.5 rounded-md hover:bg-dashboard-highlight/10 text-dashboard-text-secondary hover:text-dashboard-text transition-colors">
@@ -104,6 +140,65 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
           </tbody>
         </table>
       </div>
+
+      {/* Edit User Modal */}
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Edit User Information</DialogTitle>
+          </DialogHeader>
+          
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="subRole"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sub Role</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              
+              <DialogFooter>
+                <Button type="button" variant="outline" onClick={() => setIsEditModalOpen(false)}>
+                  Cancel
+                </Button>
+                <Button type="submit">Save Changes</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
