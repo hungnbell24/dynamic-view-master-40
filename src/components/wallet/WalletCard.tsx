@@ -58,35 +58,35 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
           </ResponsiveContainer>
         </div>
         
-        {/* Data statistics - on mobile showing 2 items per row with title: value format */}
+        {/* Data statistics - on mobile showing 2 items per row with clear line breaks */}
         <div className={`${isMobile ? 'w-full' : 'w-[30%]'} flex flex-col justify-center`}>
           {isMobile ? (
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col space-y-1">
                 <div className="flex flex-col">
-                  <span className="text-sm text-dashboard-text-secondary">Month Revenue:</span>
-                  <span className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</span>
+                  <span className="text-sm text-dashboard-text-secondary block">Month Revenue:</span>
+                  <span className="text-lg font-semibold text-dashboard-text block">${data.revenue.toFixed(2)}</span>
                 </div>
               </div>
               
               <div className="flex flex-col space-y-1">
                 <div className="flex flex-col">
-                  <span className="text-sm text-dashboard-text-secondary">Month Income:</span>
-                  <span className="text-lg font-semibold text-dashboard-text">${data.income.toFixed(2)}</span>
+                  <span className="text-sm text-dashboard-text-secondary block">Month Income:</span>
+                  <span className="text-lg font-semibold text-dashboard-text block">${data.income.toFixed(2)}</span>
                 </div>
               </div>
               
               <div className="flex flex-col space-y-1">
                 <div className="flex flex-col">
-                  <span className="text-sm text-dashboard-text-secondary">Month ROI:</span>
-                  <span className="text-lg font-semibold text-dashboard-text">${data.roi.toFixed(2)}</span>
+                  <span className="text-sm text-dashboard-text-secondary block">Month ROI:</span>
+                  <span className="text-lg font-semibold text-dashboard-text block">${data.roi.toFixed(2)}</span>
                 </div>
               </div>
               
               <div className="flex flex-col space-y-1">
                 <div className="flex flex-col">
-                  <span className="text-sm text-dashboard-text-secondary">Month Expenses:</span>
-                  <span className="text-lg font-semibold text-dashboard-text">${data.expenses.toFixed(2)}</span>
+                  <span className="text-sm text-dashboard-text-secondary block">Month Expenses:</span>
+                  <span className="text-lg font-semibold text-dashboard-text block">${data.expenses.toFixed(2)}</span>
                 </div>
               </div>
             </div>
