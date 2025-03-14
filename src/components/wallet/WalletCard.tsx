@@ -58,27 +58,53 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
           </ResponsiveContainer>
         </div>
         
-        {/* Data statistics in a vertical line next to the chart - taking 30% of width */}
-        <div className={`${isMobile ? 'w-full' : 'w-[30%]'} flex flex-col justify-center space-y-4`}>
-          <div className="flex flex-col space-y-1">
-            <div className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</div>
-            <div className="text-sm text-dashboard-text-secondary">Month Revenue</div>
-          </div>
-          
-          <div className="flex flex-col space-y-1">
-            <div className="text-lg font-semibold text-dashboard-text">${data.income.toFixed(2)}</div>
-            <div className="text-sm text-dashboard-text-secondary">Month Income</div>
-          </div>
-          
-          <div className="flex flex-col space-y-1">
-            <div className="text-lg font-semibold text-dashboard-text">${data.roi.toFixed(2)}</div>
-            <div className="text-sm text-dashboard-text-secondary">Month ROI</div>
-          </div>
-          
-          <div className="flex flex-col space-y-1">
-            <div className="text-lg font-semibold text-dashboard-text">${data.expenses.toFixed(2)}</div>
-            <div className="text-sm text-dashboard-text-secondary">Month Expenses</div>
-          </div>
+        {/* Data statistics - on mobile showing 2 items per row */}
+        <div className={`${isMobile ? 'w-full' : 'w-[30%]'} flex flex-col justify-center`}>
+          {isMobile ? (
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col space-y-1">
+                <div className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</div>
+                <div className="text-sm text-dashboard-text-secondary">Month Revenue</div>
+              </div>
+              
+              <div className="flex flex-col space-y-1">
+                <div className="text-lg font-semibold text-dashboard-text">${data.income.toFixed(2)}</div>
+                <div className="text-sm text-dashboard-text-secondary">Month Income</div>
+              </div>
+              
+              <div className="flex flex-col space-y-1">
+                <div className="text-lg font-semibold text-dashboard-text">${data.roi.toFixed(2)}</div>
+                <div className="text-sm text-dashboard-text-secondary">Month ROI</div>
+              </div>
+              
+              <div className="flex flex-col space-y-1">
+                <div className="text-lg font-semibold text-dashboard-text">${data.expenses.toFixed(2)}</div>
+                <div className="text-sm text-dashboard-text-secondary">Month Expenses</div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col space-y-4">
+              <div className="flex flex-col space-y-1">
+                <div className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</div>
+                <div className="text-sm text-dashboard-text-secondary">Month Revenue</div>
+              </div>
+              
+              <div className="flex flex-col space-y-1">
+                <div className="text-lg font-semibold text-dashboard-text">${data.income.toFixed(2)}</div>
+                <div className="text-sm text-dashboard-text-secondary">Month Income</div>
+              </div>
+              
+              <div className="flex flex-col space-y-1">
+                <div className="text-lg font-semibold text-dashboard-text">${data.roi.toFixed(2)}</div>
+                <div className="text-sm text-dashboard-text-secondary">Month ROI</div>
+              </div>
+              
+              <div className="flex flex-col space-y-1">
+                <div className="text-lg font-semibold text-dashboard-text">${data.expenses.toFixed(2)}</div>
+                <div className="text-sm text-dashboard-text-secondary">Month Expenses</div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
