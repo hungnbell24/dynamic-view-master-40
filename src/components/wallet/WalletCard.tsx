@@ -2,6 +2,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { MoreHorizontal } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface WalletCardProps {
   title: string;
@@ -14,6 +15,8 @@ interface WalletCardProps {
 }
 
 const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
+  const isMobile = useIsMobile();
+  
   const pieData = [
     { name: 'Revenue', value: data.revenue, color: '#4adb61' },
     { name: 'Income', value: data.income, color: '#3e7bfa' },
@@ -30,9 +33,9 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
         </button>
       </div>
       
-      <div className="flex flex-row space-x-4">
-        {/* Smaller pie chart on the left */}
-        <div className="w-1/2 h-64">
+      <div className={`flex ${isMobile ? 'flex-col space-y-4' : 'flex-row space-x-4'}`}>
+        {/* Larger pie chart on the left */}
+        <div className={`${isMobile ? 'w-full' : 'w-[70%]'} h-64`}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -55,8 +58,8 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
           </ResponsiveContainer>
         </div>
         
-        {/* Data statistics in a vertical line next to the chart */}
-        <div className="w-1/2 flex flex-col justify-center space-y-4">
+        {/* Data statistics in a vertical line next to the chart - taking 30% of width */}
+        <div className={`${isMobile ? 'w-full' : 'w-[30%]'} flex flex-col justify-center space-y-4`}>
           <div className="flex flex-col space-y-1">
             <div className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</div>
             <div className="text-sm text-dashboard-text-secondary">Month Revenue</div>
