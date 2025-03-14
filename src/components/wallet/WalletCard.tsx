@@ -58,28 +58,36 @@ const WalletCard: React.FC<WalletCardProps> = ({ title, data }) => {
           </ResponsiveContainer>
         </div>
         
-        {/* Data statistics - on mobile showing 2 items per row */}
+        {/* Data statistics - on mobile showing 2 items per row with title: value format */}
         <div className={`${isMobile ? 'w-full' : 'w-[30%]'} flex flex-col justify-center`}>
           {isMobile ? (
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col space-y-1">
-                <div className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</div>
-                <div className="text-sm text-dashboard-text-secondary">Month Revenue</div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-dashboard-text-secondary">Month Revenue:</span>
+                  <span className="text-lg font-semibold text-dashboard-text">${data.revenue.toFixed(2)}</span>
+                </div>
               </div>
               
               <div className="flex flex-col space-y-1">
-                <div className="text-lg font-semibold text-dashboard-text">${data.income.toFixed(2)}</div>
-                <div className="text-sm text-dashboard-text-secondary">Month Income</div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-dashboard-text-secondary">Month Income:</span>
+                  <span className="text-lg font-semibold text-dashboard-text">${data.income.toFixed(2)}</span>
+                </div>
               </div>
               
               <div className="flex flex-col space-y-1">
-                <div className="text-lg font-semibold text-dashboard-text">${data.roi.toFixed(2)}</div>
-                <div className="text-sm text-dashboard-text-secondary">Month ROI</div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-dashboard-text-secondary">Month ROI:</span>
+                  <span className="text-lg font-semibold text-dashboard-text">${data.roi.toFixed(2)}</span>
+                </div>
               </div>
               
               <div className="flex flex-col space-y-1">
-                <div className="text-lg font-semibold text-dashboard-text">${data.expenses.toFixed(2)}</div>
-                <div className="text-sm text-dashboard-text-secondary">Month Expenses</div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-dashboard-text-secondary">Month Expenses:</span>
+                  <span className="text-lg font-semibold text-dashboard-text">${data.expenses.toFixed(2)}</span>
+                </div>
               </div>
             </div>
           ) : (
