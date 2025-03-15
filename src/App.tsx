@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Task from "./pages/Task";
 import Email from "./pages/Email";
+import Login from "./pages/Login";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -17,21 +20,60 @@ const App = () => (
       <Toaster />
       <Sonner position="top-right" />
       <BrowserRouter>
-        <div className="min-h-screen">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/task" element={<Task />} />
-            <Route path="/email" element={<Email />} />
-            <Route path="/calendar" element={<Index />} />
-            <Route path="/analytics" element={<Index />} />
-            <Route path="/companies" element={<Index />} />
-            <Route path="/contact" element={<Index />} />
-            <Route path="/help" element={<Index />} />
-            <Route path="/settings" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+        <AuthProvider>
+          <div className="min-h-screen">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/task" element={
+                <ProtectedRoute>
+                  <Task />
+                </ProtectedRoute>
+              } />
+              <Route path="/email" element={
+                <ProtectedRoute>
+                  <Email />
+                </ProtectedRoute>
+              } />
+              <Route path="/calendar" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/analytics" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/companies" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/contact" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/help" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/settings" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
