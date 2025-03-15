@@ -63,9 +63,9 @@ const DashboardSidebar: React.FC = () => {
       <SidebarHeader className="py-6 flex justify-center">
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded-md bg-dashboard-highlight flex items-center justify-center">
-            <span className={"font-bold text-white"}>K</span>
+            <span className={"font-bold text-white"}>T3</span>
           </div>
-          <span className={"font-medium text-lg "}>Kuantum</span>
+          <span className={"font-medium text-lg "}>Telehub</span>
         </div>
       </SidebarHeader>
 
