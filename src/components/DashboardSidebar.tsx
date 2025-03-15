@@ -25,6 +25,7 @@ import {
   LogOut,
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { useTheme } from './theme/ThemeProvider';
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
@@ -45,18 +46,29 @@ const DashboardSidebar: React.FC = () => {
   const location = useLocation();
   const { logout } = useAuth();
   const isActive = (path: string) => location.pathname === path;
+  const { theme } = useTheme();
+  const textColor = (item): String => {
+    return isActive(item.path) ?
+      (theme === 'dark' ? 'text-white' : 'text-black') + ' font-medium' :
+      (theme === 'dark' ? 'text-gray-400' : 'text-black') + ' font-normal'
+
+  }
+
+  const hoverTextColor = (): String => {
+    return theme === 'dark' ? 'hover:bg-white/5' : 'text-black';
+  }
 
   return (
     <Sidebar className="border-r border-white/5">
       <SidebarHeader className="py-6 flex justify-center">
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded-md bg-dashboard-highlight flex items-center justify-center">
-            <span className="text-white font-bold">K</span>
+            <span className={"font-bold text-white"}>K</span>
           </div>
-          <span className="text-white font-medium text-lg">Kuantum</span>
+          <span className={"font-medium text-lg "}>Kuantum</span>
         </div>
       </SidebarHeader>
-      
+
       <SidebarContent className="px-3">
         <SidebarGroup>
           <SidebarGroupContent>
@@ -64,16 +76,14 @@ const DashboardSidebar: React.FC = () => {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label} className="my-1">
                   <SidebarMenuButton asChild className={`
-                    group transition-all duration-300 py-2 hover:bg-white/5 rounded-md
-                    ${isActive(item.path) ? 'bg-white/5 text-white font-medium' : 'text-gray-400 font-normal'}
+                    group py-2 ${hoverTextColor()} rounded-md
+                    ${textColor(item)}
                   `}>
                     <Link to={item.path} className="flex items-center px-3 py-1">
                       <item.icon
-                        className={`mr-3 h-5 w-5 transition-colors ${
-                          isActive(item.path) ? 'text-white' : 'text-gray-400 group-hover:text-white'
-                        }`}
+                        className={`mr-3 h-5 w-5 transition-colors ${textColor(item.path)}`}
                       />
-                      <span className="group-hover:text-white">{item.label}</span>
+                      <span>{item.label}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -89,17 +99,16 @@ const DashboardSidebar: React.FC = () => {
             <SidebarMenu>
               {bottomMenuItems.map((item) => (
                 <SidebarMenuItem key={item.label} className="my-1">
-                  <SidebarMenuButton asChild className={`
-                    group transition-all duration-300 py-2 hover:bg-white/5 rounded-md
-                    ${isActive(item.path) ? 'bg-white/5 text-white font-medium' : 'text-gray-400 font-normal'}
+                  <SidebarMenuButton asChild
+                    className={`
+                    group  py-2 ${hoverTextColor()} rounded-md ${textColor(item)}
                   `}>
                     <Link to={item.path} className="flex items-center px-3 py-1">
                       <item.icon
-                        className={`mr-3 h-5 w-5 transition-colors ${
-                          isActive(item.path) ? 'text-white' : 'text-gray-400 group-hover:text-white'
-                        }`}
+                        className={`mr-3 h-5 w-5 transition-colors ${isActive(item.path) ? 'text-white' : 'text-gray-400 group-hover:text-white'
+                          }`}
                       />
-                      <span className="group-hover:text-white">{item.label}</span>
+                      <span>{item.label}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -107,10 +116,10 @@ const DashboardSidebar: React.FC = () => {
 
               {/* Logout Button */}
               <SidebarMenuItem className="my-1">
-                <SidebarMenuButton asChild className="group transition-all duration-300 py-2 hover:bg-white/5 rounded-md text-gray-400 font-normal">
-                  <Button 
-                    onClick={logout} 
-                    variant="ghost" 
+                <SidebarMenuButton asChild className={`group py-2 ${hoverTextColor()} rounded-md text-gray-400 font-normal`}>
+                  <Button
+                    onClick={logout}
+                    variant="ghost"
                     className="w-full flex items-center px-3 py-1 justify-start"
                   >
                     <LogOut className="mr-3 h-5 w-5 text-gray-400 group-hover:text-white" />
@@ -121,7 +130,7 @@ const DashboardSidebar: React.FC = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        
+
         <div className="mt-8 px-3">
           <div className="flex items-center space-x-3">
             <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
