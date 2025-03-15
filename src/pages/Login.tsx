@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { 
   Dialog,
   DialogContent,
@@ -40,6 +39,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   
+  // Get the intended destination from location state, or default to "/" (dashboard)
   const from = location.state?.from?.pathname || "/";
   
   const form = useForm<LoginFormValues>({
@@ -81,7 +81,9 @@ const Login = () => {
         // Success, store token and redirect
         localStorage.setItem("authData", JSON.stringify(result.data));
         toast.success("Login successful");
-        navigate(from, { replace: true });
+        
+        // Redirect to the dashboard
+        navigate("/", { replace: true });
       }
     } catch (error) {
       setErrorMessage("Network error. Please try again later.");
