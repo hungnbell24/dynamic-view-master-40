@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 import {
   Sidebar,
   SidebarContent,
@@ -22,7 +22,9 @@ import {
   Contact,
   Settings,
   HelpCircle,
+  LogOut,
 } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
@@ -41,6 +43,7 @@ const bottomMenuItems = [
 
 const DashboardSidebar: React.FC = () => {
   const location = useLocation();
+  const { logout } = useAuth();
   const isActive = (path: string) => location.pathname === path;
 
   return (
@@ -101,6 +104,20 @@ const DashboardSidebar: React.FC = () => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+
+              {/* Logout Button */}
+              <SidebarMenuItem className="my-1">
+                <SidebarMenuButton asChild className="group transition-all duration-300 py-2 hover:bg-white/5 rounded-md text-gray-400 font-normal">
+                  <Button 
+                    onClick={logout} 
+                    variant="ghost" 
+                    className="w-full flex items-center px-3 py-1 justify-start"
+                  >
+                    <LogOut className="mr-3 h-5 w-5 text-gray-400 group-hover:text-white" />
+                    <span className="group-hover:text-white">Logout</span>
+                  </Button>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
