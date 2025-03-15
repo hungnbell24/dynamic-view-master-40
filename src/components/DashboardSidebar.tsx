@@ -81,7 +81,7 @@ const DashboardSidebar: React.FC = () => {
                   `}>
                     <Link to={item.path} className="flex items-center px-3 py-1">
                       <item.icon
-                        className={`mr-3 h-5 w-5 transition-colors ${textColor(item.path)}`}
+                        className={`mr-3 h-5 w-5 ${textColor(item.path)}`}
                       />
                       <span>{item.label}</span>
                     </Link>
@@ -105,7 +105,7 @@ const DashboardSidebar: React.FC = () => {
                   `}>
                     <Link to={item.path} className="flex items-center px-3 py-1">
                       <item.icon
-                        className={`mr-3 h-5 w-5 transition-colors ${textColor(item.path)}`}
+                        className={`mr-3 h-5 w-5 ${textColor(item.path)}`}
                       />
                       <span>{item.label}</span>
                     </Link>
