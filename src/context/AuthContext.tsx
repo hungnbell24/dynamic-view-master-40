@@ -42,6 +42,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const parsedData = JSON.parse(storedData);
         setAuthData(parsedData);
         setIsAuthenticated(true);
+        console.log("Auth data loaded from localStorage:", parsedData);
       } catch (error) {
         console.error("Failed to parse auth data:", error);
         localStorage.removeItem("authData");
@@ -54,6 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setAuthData(null);
     setIsAuthenticated(false);
     navigate("/login");
+    console.log("User logged out");
   };
 
   return (

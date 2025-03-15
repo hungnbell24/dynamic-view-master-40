@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -35,6 +36,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +44,13 @@ const Login = () => {
   // Get the intended destination from location state, or default to "/" (dashboard)
   const from = location.state?.from?.pathname || "/";
   
+  // If already authenticated, redirect to dashboard
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -82,8 +91,9 @@ const Login = () => {
         localStorage.setItem("authData", JSON.stringify(result.data));
         toast.success("Login successful");
         
-        // Redirect to the dashboard
+        // Redirect to the dashboard immediately
         navigate("/", { replace: true });
+        console.log("Redirecting to dashboard...");
       }
     } catch (error) {
       setErrorMessage("Network error. Please try again later.");
