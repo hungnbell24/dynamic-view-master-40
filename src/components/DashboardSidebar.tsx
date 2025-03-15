@@ -105,8 +105,7 @@ const DashboardSidebar: React.FC = () => {
                   `}>
                     <Link to={item.path} className="flex items-center px-3 py-1">
                       <item.icon
-                        className={`mr-3 h-5 w-5 transition-colors ${isActive(item.path) ? 'text-white' : 'text-gray-400 group-hover:text-white'
-                          }`}
+                        className={`mr-3 h-5 w-5 transition-colors ${textColor(item.path)}`}
                       />
                       <span>{item.label}</span>
                     </Link>
@@ -116,14 +115,16 @@ const DashboardSidebar: React.FC = () => {
 
               {/* Logout Button */}
               <SidebarMenuItem className="my-1">
-                <SidebarMenuButton asChild className={`group py-2 ${hoverTextColor()} rounded-md text-gray-400 font-normal`}>
+                <SidebarMenuButton asChild className={`
+                    group  py-2 ${hoverTextColor()} rounded-md ${textColor({ path: '/unknow' })}
+                  `}>
                   <Button
                     onClick={logout}
                     variant="ghost"
                     className="w-full flex items-center px-3 py-1 justify-start"
                   >
-                    <LogOut className="mr-3 h-5 w-5 text-gray-400 group-hover:text-white" />
-                    <span className="group-hover:text-white">Logout</span>
+                    <LogOut className={"mr-3 h-5 w-5 " + textColor({ path: '/unknow' })} />
+                    <span >Logout</span>
                   </Button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -141,13 +142,13 @@ const DashboardSidebar: React.FC = () => {
               />
             </div>
             <div>
-              <p className="text-sm font-medium text-white">Jansen Sitompul</p>
-              <p className="text-xs text-gray-400">Admin</p>
+              <p className={"text-sm font-medium " + textColor({ path: '/unknow' })}>Jansen Sitompul</p>
+              <p className={"text-xs " + textColor({ path: '/unknow' })}>Admin</p>
             </div>
           </div>
         </div>
       </SidebarFooter>
-    </Sidebar>
+    </Sidebar >
   );
 };
 
