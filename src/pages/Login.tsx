@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -36,18 +36,18 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // Get the intended destination from location state, or default to "/" (dashboard)
   const from = location.state?.from?.pathname || "/";
-  
+
   // If already authenticated, redirect to dashboard
   React.useEffect(() => {
     if (isAuthenticated) {
-      navigate("/", { replace: true });
+      navigate("/");
     }
   }, [isAuthenticated, navigate]);
 
@@ -62,7 +62,7 @@ const Login = () => {
 
   const onSubmit = async (values: LoginFormValues) => {
     setIsLoading(true);
-    
+
     // Prepare payload
     const payload = {
       email: values.email,
@@ -70,7 +70,7 @@ const Login = () => {
       domain: values.domain,
       ttl_in_second: 259200,
     };
-    
+
     try {
       const response = await fetch("http://localhost:3003/login", {
         method: "POST",
@@ -79,9 +79,9 @@ const Login = () => {
         },
         body: JSON.stringify(payload),
       });
-      
+
       const result = await response.json();
-      
+
       if (result.error) {
         // Show error dialog
         setErrorMessage(result.data);
@@ -90,9 +90,8 @@ const Login = () => {
         // Success, store token and redirect
         localStorage.setItem("authData", JSON.stringify(result.data));
         toast.success("Login successful");
-        
-        // Redirect to the dashboard immediately
-        navigate("/", { replace: true });
+        setIsAuthenticated(true);
+        // Redirect to the dashboard immediately 
         console.log("Redirecting to dashboard...");
       }
     } catch (error) {
@@ -111,7 +110,7 @@ const Login = () => {
             <h1 className="text-2xl font-bold">Login</h1>
             <p className="text-gray-600 mt-2">Enter your credentials to access your account</p>
           </div>
-          
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
@@ -123,10 +122,10 @@ const Login = () => {
                     <FormControl>
                       <div className="flex items-center space-x-2">
                         <Globe className="h-5 w-5 text-gray-400" />
-                        <Input 
-                          placeholder="yourdomain.com" 
-                          {...field} 
-                          className="flex-1" 
+                        <Input
+                          placeholder="yourdomain.com"
+                          {...field}
+                          className="flex-1"
                         />
                       </div>
                     </FormControl>
@@ -134,7 +133,7 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="email"
@@ -144,9 +143,9 @@ const Login = () => {
                     <FormControl>
                       <div className="flex items-center space-x-2">
                         <Mail className="h-5 w-5 text-gray-400" />
-                        <Input 
-                          placeholder="email@example.com" 
-                          {...field} 
+                        <Input
+                          placeholder="email@example.com"
+                          {...field}
                           className="flex-1"
                         />
                       </div>
@@ -155,7 +154,7 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="password"
@@ -165,10 +164,10 @@ const Login = () => {
                     <FormControl>
                       <div className="flex items-center space-x-2">
                         <Lock className="h-5 w-5 text-gray-400" />
-                        <Input 
-                          type="password" 
-                          placeholder="******" 
-                          {...field} 
+                        <Input
+                          type="password"
+                          placeholder="******"
+                          {...field}
                           className="flex-1"
                         />
                       </div>
@@ -177,10 +176,10 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              
-              <Button 
-                type="submit" 
-                className="w-full mt-6" 
+
+              <Button
+                type="submit"
+                className="w-full mt-6"
                 disabled={isLoading}
               >
                 {isLoading ? "Logging in..." : "Login"}
@@ -189,7 +188,7 @@ const Login = () => {
           </Form>
         </div>
       </div>
-      
+
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>

@@ -12,6 +12,7 @@ interface AuthData {
 interface AuthContextType {
   authData: AuthData | null;
   isAuthenticated: boolean;
+  setIsAuthenticated: (value: boolean) => void;
   logout: () => void;
 }
 
@@ -63,6 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       value={{
         authData,
         isAuthenticated,
+        setIsAuthenticated,
         logout,
       }}
     >
