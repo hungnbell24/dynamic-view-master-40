@@ -30,9 +30,10 @@ const Index = () => {
 
   useEffect(() => {
     // Add a welcome toast when the dashboard loads
-    toast.success('Welcome to Kuantum Dashboard', {
-      description: 'Your financial analytics platform',
+    toast.success('Welcome to Telehub Dashboard', {
+      description: 'OMNICHANNEL support & saleS platform',
       duration: 5000,
+      position: 'bottom-right',
     });
 
     // Fetch quick summary data
@@ -53,17 +54,17 @@ const Index = () => {
         });
 
         const result = await response.json();
-        
+
         if (!result.error) {
           console.log('Quick summary data:', result.data);
           setSummaryData(result.data);
         } else {
           console.error('Error fetching summary data:', result.data);
-          toast.error('Failed to fetch summary data');
+          toast.error('Failed to fetch summary data', { position: 'bottom-right' });
         }
       } catch (error) {
         console.error('Error fetching summary data:', error);
-        toast.error('Network error while fetching summary data');
+        toast.error('Network error while fetching summary data', { position: 'bottom-right' });
       } finally {
         setIsLoading(false);
       }
@@ -154,7 +155,7 @@ const Index = () => {
   return (
     <DashboardLayout>
       <DashboardHeader title="Dashboard" />
-      
+
       <div className="p-6 pt-0 space-y-6">
         {/* Stats row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -175,32 +176,32 @@ const Index = () => {
             </>
           ) : (
             <>
-              <StatCard 
-                icon={<PhoneCall size={24} />} 
-                amount={summaryData?.call.total.toString() || "0"} 
-                label="Total Calls" 
+              <StatCard
+                icon={<PhoneCall size={24} />}
+                amount={summaryData?.call.total.toString() || "0"}
+                label="Total Calls"
                 className="animation-delay-100"
               />
-              <StatCard 
-                icon={<PhoneCall size={24} />} 
-                amount={summaryData?.call.miss.toString() || "0"} 
-                label="Missed Calls" 
+              <StatCard
+                icon={<PhoneCall size={24} />}
+                amount={summaryData?.call.miss.toString() || "0"}
+                label="Missed Calls"
                 className="animation-delay-200"
               />
-              <StatCard 
-                icon={<Globe size={24} />} 
-                amount={summaryData?.web.miss.toString() || "0"} 
-                label="Missed Web Contacts" 
+              <StatCard
+                icon={<Globe size={24} />}
+                amount={summaryData?.web.miss.toString() || "0"}
+                label="Missed Web Contacts"
                 className="animation-delay-300"
               />
             </>
           )}
         </div>
-        
+
         {/* Notification banner */}
-        <NotificationBanner 
-          title="We'd like to propose some improvements" 
-          description="We analyzed your account's performance and here's what we found out" 
+        <NotificationBanner
+          title="We'd like to propose some improvements"
+          description="We analyzed your account's performance and here's what we found out"
           actionLabel="Continue"
           action={() => {
             toast.info('Analyzing account performance...', {
@@ -208,13 +209,13 @@ const Index = () => {
             });
           }}
         />
-        
+
         {/* Team and Wallet row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <TeamSection title="Our Team" members={teamMembers} />
           <WalletCard title="Your Wallet account" data={walletData} />
         </div>
-        
+
         {/* Users table */}
         <UsersTable users={users} />
       </div>
