@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface User {
   id: number;
@@ -25,6 +26,7 @@ interface UsersTableProps {
 const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const form = useForm<User>({
     defaultValues: editingUser || {
@@ -189,7 +191,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
                 )}
               />
               
-              <DialogFooter>
+              <DialogFooter className={isMobile ? "flex-col space-y-2" : ""}>
                 <Button type="button" variant="outline" onClick={() => setIsEditModalOpen(false)}>
                   Cancel
                 </Button>
