@@ -20,9 +20,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   });
 
   useEffect(() => {
-    // Add a class to the document to prevent transform effects during theme transition
-    document.documentElement.classList.add('disable-transitions');
-    
     // Update localStorage when theme changes
     localStorage.setItem('theme', theme);
     
@@ -33,11 +30,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } else {
       html.classList.remove('dark');
     }
-    
-    // Brief timeout to allow DOM to update before re-enabling transitions
-    setTimeout(() => {
-      document.documentElement.classList.remove('disable-transitions');
-    }, 50);
   }, [theme]);
 
   return (
