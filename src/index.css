@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -172,6 +173,18 @@
   }
 
   /* Toast styles */
+  .sonner-toast[data-type="success"] {
+    @apply bg-dashboard-green/90 text-white border-dashboard-green/50;
+  }
+  
+  .sonner-toast[data-type="success"] .sonner-toast-description {
+    @apply text-white/90;
+  }
+  
+  .sonner-toast[data-type="success"] .sonner-toast-close {
+    @apply text-white/70 hover:text-white;
+  }
+  
   .sonner-toast[data-type="error"] {
     @apply bg-destructive text-destructive-foreground border-destructive/50;
   }
