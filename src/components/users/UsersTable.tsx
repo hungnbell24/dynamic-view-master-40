@@ -192,10 +192,21 @@ const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
               />
               
               <DialogFooter className={isMobile ? "flex-col space-y-2" : ""}>
-                <Button type="button" variant="outline" onClick={() => setIsEditModalOpen(false)}>
-                  Cancel
-                </Button>
-                <Button type="submit">Save Changes</Button>
+                {isMobile ? (
+                  <>
+                    <Button type="submit">Save Changes</Button>
+                    <Button type="button" variant="outline" onClick={() => setIsEditModalOpen(false)}>
+                      Cancel
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button type="button" variant="outline" onClick={() => setIsEditModalOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button type="submit">Save Changes</Button>
+                  </>
+                )}
               </DialogFooter>
             </form>
           </Form>
