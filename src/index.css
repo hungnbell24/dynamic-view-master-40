@@ -170,6 +170,19 @@
   .table-row {
     @apply border-b border-dashboard-border transition-colors hover:bg-dashboard-card/70;
   }
+
+  /* Toast styles */
+  .sonner-toast[data-type="error"] {
+    @apply bg-destructive text-destructive-foreground border-destructive/50;
+  }
+  
+  .sonner-toast[data-type="error"] .sonner-toast-description {
+    @apply text-destructive-foreground/90;
+  }
+  
+  .sonner-toast[data-type="error"] .sonner-toast-close {
+    @apply text-destructive-foreground/70 hover:text-destructive-foreground;
+  }
 }
 
 @layer utilities {
