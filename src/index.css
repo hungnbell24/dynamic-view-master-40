@@ -124,6 +124,13 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-dashboard-card/70;
   }
+  
+  /* Disable transform effects during theme changes */
+  .disable-transitions * {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }
 
 @layer components {

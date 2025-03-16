@@ -123,6 +123,9 @@ export default {
         pulse: "pulse 2s infinite",
         shimmer: "shimmer 2s infinite linear",
       },
+      transitionProperty: {
+        'theme': 'background-color, color, border-color',
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],
