@@ -24,45 +24,37 @@ const Login = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const handleSubmit = async (values: LoginFormValues) => {
-    setIsLoading(true);
-    console.log("Login attempt with:", values);
+  // Handle test credentials authentication
+  const handleTestCredentials = (values: LoginFormValues) => {
+    // Mock successful login for specific test credentials
+    console.log("Using test credentials - bypassing API call");
     
-    // Check for test credentials
-    if (
-      values.domain === "bell24vietnam.vn" &&
-      values.email === "admin@bell24vietnam.vn" &&
-      values.password === "123456"
-    ) {
-      // Mock successful login for specific test credentials
-      console.log("Using test credentials - bypassing API call");
-      
-      // Create mock auth data that matches the structure expected by the app
-      const mockAuthData = {
-        token: "test-token-12345",
-        tenant_id: "test-tenant-id",
-        user_id: "test-user-id",
-        ttl: 259200
-      };
-      
-      // Store mock data in localStorage
-      localStorage.setItem("authData", JSON.stringify(mockAuthData));
-      
-      // Show success message
-      toast.success("Login successful");
-      
-      // Update authentication state
-      setIsAuthenticated(true);
-      
-      // Navigate to dashboard
-      console.log("Login successful, redirecting to dashboard...");
-      navigate("/");
-      
-      setIsLoading(false);
-      return;
-    }
+    // Create mock auth data that matches the structure expected by the app
+    const mockAuthData = {
+      token: "test-token-12345",
+      tenant_id: "test-tenant-id",
+      user_id: "test-user-id",
+      ttl: 259200
+    };
+    
+    // Store mock data in localStorage
+    localStorage.setItem("authData", JSON.stringify(mockAuthData));
+    
+    // Show success message
+    toast.success("Login successful");
+    
+    // Update authentication state
+    setIsAuthenticated(true);
+    
+    // Navigate to dashboard
+    console.log("Login successful, redirecting to dashboard...");
+    navigate("/");
+    
+    return true; // Authentication successful
+  };
 
-    // Continue with normal API call for other credentials
+  // Handle API authentication
+  const handleApiAuthentication = async (values: LoginFormValues) => {
     const payload = {
       email: values.email,
       password: values.password,
@@ -87,6 +79,7 @@ const Login = () => {
         setErrorMessage(result.data);
         setIsDialogOpen(true);
         console.error("Login failed:", result.data);
+        return false; // Authentication failed
       } else {
         // Success, store token and redirect
         localStorage.setItem("authData", JSON.stringify(result.data));
@@ -94,12 +87,37 @@ const Login = () => {
         setIsAuthenticated(true);
         console.log("Login successful, redirecting to dashboard...");
         navigate("/"); // Explicitly navigate to dashboard
+        return true; // Authentication successful
       }
     } catch (error) {
       console.error("Login network error:", error);
       setErrorMessage("Network error. Please try again later.");
       setIsDialogOpen(true);
-    } finally {
+      return false; // Authentication failed
+    }
+  };
+
+  const handleSubmit = async (values: LoginFormValues) => {
+    setIsLoading(true);
+    console.log("Login attempt with:", values);
+    
+    let authSuccess = false;
+    
+    // Check for test credentials
+    if (
+      values.domain === "bell24vietnam.vn" &&
+      values.email === "admin@bell24vietnam.vn" &&
+      values.password === "123456"
+    ) {
+      authSuccess = handleTestCredentials(values);
+    } else {
+      // Continue with normal API call for other credentials
+      authSuccess = await handleApiAuthentication(values);
+    }
+    
+    // Only set loading to false if authentication was not successful
+    // For successful auth, the page will navigate away
+    if (!authSuccess) {
       setIsLoading(false);
     }
   };
