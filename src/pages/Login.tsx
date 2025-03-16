@@ -62,6 +62,7 @@ const Login = () => {
 
   const onSubmit = async (values: LoginFormValues) => {
     setIsLoading(true);
+    console.log("Login attempt with:", values);
 
     // Prepare payload
     const payload = {
@@ -72,6 +73,7 @@ const Login = () => {
     };
 
     try {
+      // Always call the API, don't add special case handling for test credentials
       const response = await fetch("http://localhost:3003/login", {
         method: "POST",
         headers: {
@@ -81,20 +83,23 @@ const Login = () => {
       });
 
       const result = await response.json();
+      console.log("Login API response:", result);
 
       if (result.error) {
         // Show error dialog
         setErrorMessage(result.data);
         setIsDialogOpen(true);
+        console.error("Login failed:", result.data);
       } else {
         // Success, store token and redirect
         localStorage.setItem("authData", JSON.stringify(result.data));
         toast.success("Login successful");
         setIsAuthenticated(true);
-        // Redirect to the dashboard immediately 
-        console.log("Redirecting to dashboard...");
+        console.log("Login successful, redirecting to dashboard...");
+        navigate("/"); // Explicitly navigate to dashboard
       }
     } catch (error) {
+      console.error("Login network error:", error);
       setErrorMessage("Network error. Please try again later.");
       setIsDialogOpen(true);
     } finally {
