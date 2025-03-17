@@ -2,28 +2,15 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import SearchBar from '../search/SearchBar';
-import DashboardSelector, { DashboardType } from '../dashboards/DashboardSelector';
 
 interface DashboardHeaderProps {
   title: string;
-  currentDashboard: DashboardType;
-  onDashboardChange: (dashboard: DashboardType) => void;
 }
 
-const DashboardHeader: React.FC<DashboardHeaderProps> = ({ 
-  title, 
-  currentDashboard, 
-  onDashboardChange 
-}) => {
+const DashboardHeader: React.FC<DashboardHeaderProps> = ({ title }) => {
   return (
     <div className="p-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-dashboard-text animate-fade-in mb-4 md:mb-0">{title}</h1>
-        <DashboardSelector 
-          currentDashboard={currentDashboard} 
-          onDashboardChange={onDashboardChange} 
-        />
-      </div>
+      <h1 className="text-2xl font-bold text-dashboard-text mb-6 animate-fade-in">{title}</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="col-span-1 md:col-span-2">
