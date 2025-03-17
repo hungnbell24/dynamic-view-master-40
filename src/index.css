@@ -178,7 +178,7 @@
   }
   
   .sonner-toast[data-type="success"] .sonner-toast-description {
-    @apply text-white/90;
+    @apply text-white text-opacity-90;
   }
   
   .sonner-toast[data-type="success"] .sonner-toast-close {
