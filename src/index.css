@@ -119,7 +119,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-dashboard-card/50 rounded-full transition-colors;
+    @apply bg-dashboard-card/50 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -129,7 +129,7 @@
 
 @layer components {
   .dashboard-card {
-    @apply bg-dashboard-card rounded-xl backdrop-blur-sm border border-dashboard-border shadow-lg transition-all duration-300;
+    @apply bg-dashboard-card rounded-xl backdrop-blur-sm border border-dashboard-border shadow-lg;
   }
 
   .status-badge {
@@ -169,7 +169,7 @@
   }
 
   .table-row {
-    @apply border-b border-dashboard-border transition-colors hover:bg-dashboard-card/70;
+    @apply border-b border-dashboard-border hover:bg-dashboard-card/70;
   }
 
   /* Toast styles */

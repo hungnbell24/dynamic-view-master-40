@@ -18,7 +18,7 @@ const ThemeToggle: React.FC = () => {
       size="icon"
       onClick={toggleTheme}
       className={cn(
-        "rounded-full transition-colors",
+        "rounded-full",
         theme === 'dark' 
           ? 'bg-slate-800 text-yellow-300 hover:text-yellow-200 hover:bg-slate-700 border-slate-700' 
           : 'bg-slate-200 text-slate-900 hover:text-slate-700 hover:bg-slate-300 border-slate-300'
