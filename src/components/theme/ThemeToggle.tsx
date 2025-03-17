@@ -7,24 +7,27 @@ import { cn } from '@/lib/utils';
 
 const ThemeToggle: React.FC = () => {
   const { theme, setTheme } = useTheme();
+  const isDarkTheme = theme === 'dark';
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(isDarkTheme ? 'light' : 'dark');
   };
+
+  const buttonClasses = cn(
+    "rounded-full",
+    isDarkTheme 
+      ? 'bg-slate-800 text-yellow-300 hover:text-yellow-200 hover:bg-slate-700 border-slate-700' 
+      : 'bg-slate-200 text-slate-900 hover:text-slate-700 hover:bg-slate-300 border-slate-300'
+  );
 
   return (
     <Button
       variant="outline"
       size="icon"
       onClick={toggleTheme}
-      className={cn(
-        "rounded-full",
-        theme === 'dark' 
-          ? 'bg-slate-800 text-yellow-300 hover:text-yellow-200 hover:bg-slate-700 border-slate-700' 
-          : 'bg-slate-200 text-slate-900 hover:text-slate-700 hover:bg-slate-300 border-slate-300'
-      )}
+      className={buttonClasses}
     >
-      {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+      {isDarkTheme ? <Sun size={18} /> : <Moon size={18} />}
     </Button>
   );
 };
