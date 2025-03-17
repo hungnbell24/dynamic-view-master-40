@@ -2,15 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import DashboardHeader from '@/components/header/DashboardHeader';
-import StatCard from '@/components/stat-card/StatCard';
-import NotificationBanner from '@/components/notification/NotificationBanner';
-import TeamSection from '@/components/team/TeamSection';
-import WalletCard from '@/components/wallet/WalletCard';
-import UsersTable from '@/components/users/UsersTable';
-import { CreditCard, DollarSign, PhoneCall, Globe, Wallet } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/context/AuthContext';
-import { Skeleton } from '@/components/ui/skeleton';
+import { DashboardType } from '@/components/dashboards/DashboardSelector';
+import MainDashboard from '@/components/dashboards/MainDashboard';
+import AnalyticsDashboard from '@/components/dashboards/AnalyticsDashboard';
 
 interface QuickSummaryData {
   call: {
@@ -27,6 +23,7 @@ const Index = () => {
   const { authData } = useAuth();
   const [summaryData, setSummaryData] = useState<QuickSummaryData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentDashboard, setCurrentDashboard] = useState<DashboardType>('main');
 
   useEffect(() => {
     // Add a welcome toast when the dashboard loads
@@ -152,73 +149,39 @@ const Index = () => {
     },
   ];
 
+  const handleDashboardChange = (dashboard: DashboardType) => {
+    setCurrentDashboard(dashboard);
+    toast.info(`Switched to ${dashboard === 'main' ? 'Main' : 'Analytics'} Dashboard`, {
+      duration: 2000,
+    });
+  };
+
+  const renderDashboard = () => {
+    switch (currentDashboard) {
+      case 'analytics':
+        return <AnalyticsDashboard />;
+      case 'main':
+      default:
+        return (
+          <MainDashboard
+            isLoading={isLoading}
+            summaryData={summaryData}
+            teamMembers={teamMembers}
+            walletData={walletData}
+            users={users}
+          />
+        );
+    }
+  };
+
   return (
     <DashboardLayout>
-      <DashboardHeader title="Dashboard" />
-
-      <div className="p-6 pt-0 space-y-6">
-        {/* Stats row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {isLoading ? (
-            <>
-              <div className="dashboard-card p-5">
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-4 w-1/2 mt-2" />
-              </div>
-              <div className="dashboard-card p-5">
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-4 w-1/2 mt-2" />
-              </div>
-              <div className="dashboard-card p-5">
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-4 w-1/2 mt-2" />
-              </div>
-            </>
-          ) : (
-            <>
-              <StatCard
-                icon={<PhoneCall size={24} />}
-                amount={summaryData?.call.total.toString() || "0"}
-                label="Total Calls"
-                className="animation-delay-100"
-              />
-              <StatCard
-                icon={<PhoneCall size={24} />}
-                amount={summaryData?.call.miss.toString() || "0"}
-                label="Missed Calls"
-                className="animation-delay-200"
-              />
-              <StatCard
-                icon={<Globe size={24} />}
-                amount={summaryData?.web.miss.toString() || "0"}
-                label="Missed Web Contacts"
-                className="animation-delay-300"
-              />
-            </>
-          )}
-        </div>
-
-        {/* Notification banner */}
-        <NotificationBanner
-          title="We'd like to propose some improvements"
-          description="We analyzed your account's performance and here's what we found out"
-          actionLabel="Continue"
-          action={() => {
-            toast.info('Analyzing account performance...', {
-              description: "We'll have recommendations for you soon"
-            });
-          }}
-        />
-
-        {/* Team and Wallet row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <TeamSection title="Our Team" members={teamMembers} />
-          <WalletCard title="Your Wallet account" data={walletData} />
-        </div>
-
-        {/* Users table */}
-        <UsersTable users={users} />
-      </div>
+      <DashboardHeader 
+        title={currentDashboard === 'main' ? 'Dashboard' : 'Analytics Dashboard'}
+        currentDashboard={currentDashboard}
+        onDashboardChange={handleDashboardChange}
+      />
+      {renderDashboard()}
     </DashboardLayout>
   );
 };

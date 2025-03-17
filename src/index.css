@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,6 +50,9 @@
     --dashboard-text: 222 47% 11%;
     --dashboard-text-secondary: 215 16% 47%;
     --dashboard-border: 214 32% 91%;
+    --dashboard-green: 142 76% 36%;
+    --dashboard-highlight: 220 90% 56%;
+    --dashboard-orange: 32 95% 44%;
   }
 
   .dark {
@@ -95,6 +99,9 @@
     --dashboard-text: 210 40% 98%;
     --dashboard-text-secondary: 215 20% 65%;
     --dashboard-border: 217 33% 18%;
+    --dashboard-green: 142 76% 46%;
+    --dashboard-highlight: 220 90% 66%;
+    --dashboard-orange: 32 95% 54%;
   }
 }
 
@@ -183,6 +190,18 @@
   .sonner-toast[data-type="error"] .sonner-toast-close {
     @apply text-destructive-foreground/70 hover:text-destructive-foreground;
   }
+
+  .sonner-toast[data-type="success"] {
+    @apply bg-dashboard-green text-white border-dashboard-green/50;
+  }
+  
+  .sonner-toast[data-type="success"] .sonner-toast-description {
+    @apply text-white/90;
+  }
+  
+  .sonner-toast[data-type="success"] .sonner-toast-close {
+    @apply text-white/70 hover:text-white;
+  }
 }
 
 @layer utilities {
@@ -204,5 +223,48 @@
   
   .animation-delay-500 {
     animation-delay: 500ms;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-in-out forwards;
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.5s ease-out forwards;
   }
 }

@@ -20,8 +20,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
           cancelButton:
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-          error: 
-            "group toast group-[.toaster]:bg-destructive group-[.toaster]:text-destructive-foreground group-[.toaster]:border-destructive/50 group-[.toaster]:shadow-lg",
+          success: "group toast group-[.toaster]:bg-dashboard-green group-[.toaster]:text-white group-[.toaster]:border-dashboard-green/50 group-[.toaster]:shadow-lg",
+          error: "group toast group-[.toaster]:bg-destructive group-[.toaster]:text-destructive-foreground group-[.toaster]:border-destructive/50 group-[.toaster]:shadow-lg",
         },
       }}
       {...props}
