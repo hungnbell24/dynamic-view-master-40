@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import LoginForm, { LoginFormValues } from "@/components/auth/LoginForm";
 import ErrorDialog from "@/components/auth/ErrorDialog";
+import API from "@/services/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -63,15 +63,7 @@ const Login = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3003/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
+      const result = await API.auth.login(payload);
       console.log("Login API response:", result);
 
       if (result.error) {

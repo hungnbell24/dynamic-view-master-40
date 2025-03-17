@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import DashboardHeader from '@/components/header/DashboardHeader';
@@ -7,10 +6,11 @@ import NotificationBanner from '@/components/notification/NotificationBanner';
 import TeamSection from '@/components/team/TeamSection';
 import WalletCard from '@/components/wallet/WalletCard';
 import UsersTable from '@/components/users/UsersTable';
-import { CreditCard, DollarSign, PhoneCall, Globe, Wallet } from 'lucide-react';
+import { PhoneCall, Globe } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/context/AuthContext';
 import { Skeleton } from '@/components/ui/skeleton';
+import API from '@/services/api';
 
 interface QuickSummaryData {
   call: {
@@ -45,15 +45,7 @@ const Index = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:3003/quick-summary', {
-          method: 'GET',
-          headers: {
-            'Authorization': authData.token,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        const result = await response.json();
+        const result = await API.dashboard.getQuickSummary();
 
         if (!result.error) {
           console.log('Quick summary data:', result.data);
