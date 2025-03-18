@@ -168,7 +168,7 @@ const DashboardSidebar: React.FC = () => {
             {isSideBarOpen && (
 
               <div>
-                <p className={"text-sm font-medium overflow-hidden " + textColor({ path: '/unknown' })} style={{ textWrap: 'nowrap' }}>Jansen Sitompul</p>
+                <p className={"text-sm font-medium overflow-hidden " + textColor({ path: '/unknown' })} style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Jansen Sitompul</p>
                 <p className={"text-xs " + textColor({ path: '/unknown' })}>Admin</p>
               </div>
             )}
