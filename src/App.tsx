@@ -29,6 +29,12 @@ const App = () => (
                   <Index />
                 </ProtectedRoute>
               } />
+
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
               <Route path="/task" element={
                 <ProtectedRoute>
                   <Task />

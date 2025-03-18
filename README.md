@@ -50,3 +50,49 @@ This project is built with .
 - React
 - shadcn-ui
 - Tailwind CSS 
+
+
+## Build reactweb component
+
+- index.html, main.tsx: change name of root id
+- main.tsx: change content to "import "./ReactWebComponent";"
+- vite.config.ts: add build, define
+```code
+build: {
+    lib: {
+      entry: "./src/ReactWebComponent.tsx", 
+      name: "ReactWebComponent",
+      fileName: (format) => `react-web-component.${format}.js`, 
+      formats: ["umd"],  
+    },
+    rollupOptions: {
+      output: {
+        assetFileNames: "[name].[ext]",
+        entryFileNames: "[name].js",  
+      },
+    },
+  },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),  
+  }
+```
+
+
+
+## embed to angular
+
+- add ReactWebComponent.js, style.css to index.html
+- main.tsx: change content to "import "./ReactWebComponent";"
+- xxxModule.ts 
+```code 
+    "import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';"
+    .....
+    @NgModule({
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    ....
+```
+
+- add tag  to template file example 
+```code
+    <omron-react-web-component></omron-react-web-component>
+```
