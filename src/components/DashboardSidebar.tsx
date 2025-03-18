@@ -156,8 +156,8 @@ const DashboardSidebar: React.FC = () => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <div className={"mt-8 " + (isSideBarOpen ? "px-3" : "") + " py-6"} >
-          <div className="flex items-center space-x-3" style={{ justifyContent: (isSideBarOpen ? '' : "center") }}>
+        <div className={"mt-8  overflow-auto" + (isSideBarOpen ? "px-3" : "") + " py-6"} >
+          <div className="flex items-center space-x-3 " style={{ justifyContent: (isSideBarOpen ? '' : "center") }}>
             <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
@@ -167,8 +167,8 @@ const DashboardSidebar: React.FC = () => {
             </div>
             {isSideBarOpen && (
 
-              <div>
-                <p className={"text-sm font-medium overflow-hidden " + textColor({ path: '/unknown' })} style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Jansen Sitompul</p>
+              <div className='relative' style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <p className={"text-sm font-medium overflow-hidden " + textColor({ path: '/unknown' })} >Jansen Sitompul</p>
                 <p className={"text-xs " + textColor({ path: '/unknown' })}>Admin</p>
               </div>
             )}
