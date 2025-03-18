@@ -29,13 +29,6 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Add a welcome toast when the dashboard loads
-    toast.success('Welcome to Telehub Dashboard', {
-      description: 'OMNICHANNEL support & saleS platform',
-      duration: 5000,
-      position: 'bottom-right',
-    });
-
     // Fetch quick summary data
     const fetchSummaryData = async () => {
       try {
