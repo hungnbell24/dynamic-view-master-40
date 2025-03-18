@@ -12,7 +12,7 @@ interface DashboardLayoutProps {
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider>
-      <SidebarProvider>
+      <SidebarProvider defaultOpen={true}>
         <div className="flex min-h-screen w-full overflow-hidden">
           <DashboardSidebar />
           <main className="flex-1 overflow-y-auto">

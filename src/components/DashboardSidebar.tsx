@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
@@ -11,6 +12,8 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarRail,
+  SidebarTrigger
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
@@ -47,11 +50,11 @@ const DashboardSidebar: React.FC = () => {
   const { logout } = useAuth();
   const isActive = (path: string) => location.pathname === path;
   const { theme } = useTheme();
+  
   const textColor = (item): String => {
     return isActive(item.path) ?
       (theme === 'dark' ? 'text-white' : 'text-black') + ' font-medium' :
       (theme === 'dark' ? 'text-gray-400' : 'text-black') + ' font-normal'
-
   }
 
   const hoverTextColor = (): String => {
@@ -59,7 +62,8 @@ const DashboardSidebar: React.FC = () => {
   }
 
   return (
-    <Sidebar className="border-r border-white/5">
+    <Sidebar className="border-r border-white/5" collapsible="icon">
+      <SidebarRail />
       <SidebarHeader className="py-6 flex justify-center">
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded-md bg-dashboard-highlight flex items-center justify-center">
@@ -75,10 +79,14 @@ const DashboardSidebar: React.FC = () => {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label} className="my-1">
-                  <SidebarMenuButton asChild className={`
-                    group py-2 ${hoverTextColor()} rounded-md
-                    ${textColor(item)}
-                  `}>
+                  <SidebarMenuButton 
+                    asChild 
+                    className={`
+                      group py-2 ${hoverTextColor()} rounded-md
+                      ${textColor(item)}
+                    `}
+                    tooltip={item.label} // Add tooltip for collapsed state
+                  >
                     <Link to={item.path} className="flex items-center px-3 py-1">
                       <item.icon
                         className={`mr-3 h-5 w-5 ${textColor(item.path)}`}
@@ -99,10 +107,13 @@ const DashboardSidebar: React.FC = () => {
             <SidebarMenu>
               {bottomMenuItems.map((item) => (
                 <SidebarMenuItem key={item.label} className="my-1">
-                  <SidebarMenuButton asChild
+                  <SidebarMenuButton 
+                    asChild
                     className={`
-                    group  py-2 ${hoverTextColor()} rounded-md ${textColor(item)}
-                  `}>
+                      group py-2 ${hoverTextColor()} rounded-md ${textColor(item)}
+                    `}
+                    tooltip={item.label} // Add tooltip for collapsed state
+                  >
                     <Link to={item.path} className="flex items-center px-3 py-1">
                       <item.icon
                         className={`mr-3 h-5 w-5 ${textColor(item.path)}`}
@@ -115,16 +126,20 @@ const DashboardSidebar: React.FC = () => {
 
               {/* Logout Button */}
               <SidebarMenuItem className="my-1">
-                <SidebarMenuButton asChild className={`
-                    group  py-2 ${hoverTextColor()} rounded-md ${textColor({ path: '/unknow' })}
-                  `}>
+                <SidebarMenuButton 
+                  asChild 
+                  className={`
+                    group py-2 ${hoverTextColor()} rounded-md ${textColor({ path: '/unknown' })}
+                  `}
+                  tooltip="Logout" // Add tooltip for collapsed state
+                >
                   <Button
                     onClick={logout}
                     variant="ghost"
                     className="w-full flex items-center px-3 py-1 justify-start"
                   >
-                    <LogOut className={"mr-3 h-5 w-5 " + textColor({ path: '/unknow' })} />
-                    <span >Logout</span>
+                    <LogOut className={"mr-3 h-5 w-5 " + textColor({ path: '/unknown' })} />
+                    <span>Logout</span>
                   </Button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -142,13 +157,13 @@ const DashboardSidebar: React.FC = () => {
               />
             </div>
             <div>
-              <p className={"text-sm font-medium " + textColor({ path: '/unknow' })}>Jansen Sitompul</p>
-              <p className={"text-xs " + textColor({ path: '/unknow' })}>Admin</p>
+              <p className={"text-sm font-medium " + textColor({ path: '/unknown' })}>Jansen Sitompul</p>
+              <p className={"text-xs " + textColor({ path: '/unknown' })}>Admin</p>
             </div>
           </div>
         </div>
       </SidebarFooter>
-    </Sidebar >
+    </Sidebar>
   );
 };
 
