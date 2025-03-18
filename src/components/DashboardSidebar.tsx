@@ -74,7 +74,7 @@ const DashboardSidebar: React.FC = () => {
             <span className={"font-bold text-white"}>T3</span>
           </div>
           {isSideBarOpen && (
-            <span className={"font-medium text-lg "}>Telehub</span>
+            <span className={"font-medium text-lg "} style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Telehub</span>
           )}
 
         </div>
