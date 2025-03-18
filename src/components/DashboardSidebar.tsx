@@ -69,12 +69,14 @@ const DashboardSidebar: React.FC = () => {
     <Sidebar className="border-r border-white/5" collapsible="icon">
       <SidebarRail onToggle={(data) => handleToggle(data)} />
       <SidebarHeader className="py-6 flex justify-center">
-        <div className="flex items-center space-x-2" style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          <div className="h-8 w-8 rounded-md bg-dashboard-highlight flex items-center justify-center">
-            <span className={"font-bold text-white"}>T3</span>
+        <div className="flex items-center space-x-2" >
+          <div className="h-8 w-8 rounded-md bg-dashboard-highlight flex items-center justify-center" style={{ minWidth: '2rem' }}>
+            <span className={"font-bold text-white"} >T3</span>
           </div>
           {isSideBarOpen && (
-            <span className={"font-medium text-lg "} >Telehub</span>
+            <div style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <span className={"font-medium text-lg "} >Telehub</span>
+            </div>
           )}
 
         </div>
