@@ -305,7 +305,7 @@ const SidebarRail = React.forwardRef<
     <button
       ref={ref}
       data-sidebar="rail"
-      aria-label="Toggle Sidebar"
+      aria-label="Click to toggle sidebar"
       tabIndex={-1}
       onClick={handleToggle}
       title="Toggle Sidebar"
