@@ -13,7 +13,8 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarRail,
-  SidebarTrigger
+  SidebarTrigger,
+  useSidebar
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
@@ -26,6 +27,8 @@ import {
   Settings,
   HelpCircle,
   LogOut,
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useTheme } from './theme/ThemeProvider';
@@ -44,25 +47,41 @@ const bottomMenuItems = [
   { icon: HelpCircle, label: 'Help Center', path: '/help' },
   { icon: Settings, label: 'Settings', path: '/settings' },
 ];
+
 type ToggleData = 'open' | 'close';
+
 const DashboardSidebar: React.FC = () => {
   const location = useLocation();
   const { logout } = useAuth();
   const isActive = (path: string) => location.pathname === path;
   const { theme } = useTheme();
+  const { state, setOpen } = useSidebar();
 
   const textColor = (item): String => {
     return isActive(item.path) ?
       (theme === 'dark' ? 'text-white' : 'text-black') + ' font-medium' :
       (theme === 'dark' ? 'text-gray-400' : 'text-black') + ' font-normal'
   }
+  
   const [isSideBarOpen, setIsSideBarOpen] = React.useState(true);
+  
   const hoverTextColor = (): String => {
     return theme === 'dark' ? 'hover:bg-white/5' : 'text-black';
   }
 
   const handleToggle = (data: ToggleData) => {
     setIsSideBarOpen(data == 'open');
+  };
+
+  const handleMenuItemClick = () => {
+    if (state === 'collapsed') {
+      setOpen(true);
+    }
+  };
+
+  const toggleSidebar = () => {
+    setOpen(state === 'expanded' ? false : true);
+    setIsSideBarOpen(state !== 'expanded');
   };
 
   return (
@@ -79,6 +98,15 @@ const DashboardSidebar: React.FC = () => {
             </div>
           )}
 
+          {/* Add explicit expand/collapse button */}
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="p-0 h-8 w-8 ml-auto" 
+            onClick={toggleSidebar}
+          >
+            {state === 'expanded' ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+          </Button>
         </div>
       </SidebarHeader>
 
@@ -96,6 +124,7 @@ const DashboardSidebar: React.FC = () => {
                       ${textColor(item)}
                     `}
                     tooltip={item.label} // Add tooltip for collapsed state
+                    onClick={handleMenuItemClick}
                   >
                     <Link to={item.path} className="flex items-center  py-1 px-3 ">
                       <item.icon
@@ -124,6 +153,7 @@ const DashboardSidebar: React.FC = () => {
                       group py-2 ${hoverTextColor()} rounded-md ${textColor(item)}
                     `}
                     tooltip={item.label} // Add tooltip for collapsed state
+                    onClick={handleMenuItemClick}
                   >
                     <Link to={item.path} className={"flex items-center py-1" + (isSideBarOpen ? " px-3" : "")}>
                       <item.icon
@@ -143,6 +173,7 @@ const DashboardSidebar: React.FC = () => {
                     group py-2 ${hoverTextColor()} rounded-md ${textColor({ path: '/unknown' })}
                   `}
                   tooltip="Logout" // Add tooltip for collapsed state
+                  onClick={handleMenuItemClick}
                 >
                   <Button
                     onClick={logout}
@@ -168,7 +199,6 @@ const DashboardSidebar: React.FC = () => {
               />
             </div>
             {isSideBarOpen && (
-
               <div className='relative' style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 <p className={"text-sm font-medium overflow-hidden " + textColor({ path: '/unknown' })} >Jansen Sitompul</p>
                 <p className={"text-xs " + textColor({ path: '/unknown' })}>Admin</p>
