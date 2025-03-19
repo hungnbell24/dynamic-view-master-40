@@ -55,26 +55,15 @@ This project is built with .
 ## Build reactweb component
 
 - index.html, main.tsx: change name of root id
-- main.tsx: change content to "import "./ReactWebComponent";"
-- vite.config.ts: add build, define
+- vite.config.ts:
 ```code
 build: {
-    lib: {
-      entry: "./src/ReactWebComponent.tsx", 
-      name: "ReactWebComponent",
-      fileName: (format) => `react-web-component.${format}.js`, 
-      formats: ["umd"],  
-    },
-    rollupOptions: {
-      output: {
-        assetFileNames: "[name].[ext]",
-        entryFileNames: "[name].js",  
-      },
-    },
-  },
-  define: {
-    "process.env.NODE_ENV": JSON.stringify("production"),  
+   ...
+    outDir: 'path to build folder'
+  ...
   }
+  
+- ReactWebComponent.tsx: add name of web component to defineCustomElement. Ex omron-react-web-component
 ```
 
 

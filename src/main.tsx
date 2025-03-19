@@ -3,5 +3,3 @@ import App from './App.tsx'
 import './index.css'
 
 createRoot(document.getElementById("omron")!).render(<App />);
-
-// import "./ReactWebComponent";
