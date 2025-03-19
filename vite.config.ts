@@ -3,8 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { resolve } from "path";
 import { componentTagger } from "lovable-tagger";
-
-// https://vitejs.dev/config/
+import { RENDER_FILE_NAME } from "./src/RenderConfig";
 export default defineConfig(({ mode }) => {
   const isComponentBuild = process.env.VITE_BUILD_MODE === "component";
   return {
@@ -18,11 +17,6 @@ export default defineConfig(({ mode }) => {
       componentTagger(),
     ].filter(Boolean),
     resolve: {
-      // alias: {
-      //   "@entry": isComponentBuild
-      //     ? resolve(__dirname, "src/ReactWebComponent.ts") // Web Component
-      //     : resolve(__dirname, "src/main.ts"), // React App bình thường
-      // },
       alias: {
         "@": path.resolve(__dirname, "./src"),
       },
@@ -33,8 +27,7 @@ export default defineConfig(({ mode }) => {
       lib: isComponentBuild
         ? {
           entry: "./src/ReactWebComponent.tsx",
-          name: "ReactWebComponent",
-          fileName: (format) => `react-web-component.${format}.js`,
+          name: RENDER_FILE_NAME,
           formats: ["umd"],
         } : undefined,
       rollupOptions: isComponentBuild
