@@ -2,6 +2,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Sidebar,
   SidebarContent,
@@ -12,8 +14,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarRail,
-  SidebarTrigger,
   useSidebar
 } from "@/components/ui/sidebar";
 import {
@@ -56,15 +56,15 @@ const DashboardSidebar: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
   const { theme } = useTheme();
   const { state, setOpen } = useSidebar();
-
+  const isMobile = useIsMobile();
   const textColor = (item): String => {
     return isActive(item.path) ?
       (theme === 'dark' ? 'text-white' : 'text-black') + ' font-medium' :
       (theme === 'dark' ? 'text-gray-400' : 'text-black') + ' font-normal'
   }
-  
+
   const [isSideBarOpen, setIsSideBarOpen] = React.useState(true);
-  
+
   const hoverTextColor = (): String => {
     return theme === 'dark' ? 'hover:bg-white/5' : 'text-black';
   }
@@ -86,7 +86,7 @@ const DashboardSidebar: React.FC = () => {
 
   return (
     <Sidebar className="border-r border-white/5" collapsible="icon">
-      <SidebarRail onToggle={(data) => handleToggle(data)} />
+
       <SidebarHeader className="py-6 flex justify-center">
         <div className="flex items-center space-x-2" >
           <div className="h-8 w-8 rounded-md bg-dashboard-highlight flex items-center justify-center" style={{ minWidth: '2rem' }}>
@@ -98,15 +98,16 @@ const DashboardSidebar: React.FC = () => {
             </div>
           )}
 
-          {/* Add explicit expand/collapse button */}
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="p-0 h-8 w-8 ml-auto" 
-            onClick={toggleSidebar}
-          >
-            {state === 'expanded' ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
-          </Button>
+          {!isMobile &&
+            <Button
+              variant="ghost"
+              size="sm"
+              className="p-0 h-8 w-8 ml-auto"
+              onClick={toggleSidebar}
+            >
+              {state === 'expanded' ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+            </Button>
+          }
         </div>
       </SidebarHeader>
 

@@ -37,7 +37,7 @@ export default defineConfig(({ mode }) => {
             inlineDynamicImports: true,
           },
         } : undefined,
-      outDir: isComponentBuild ? 'D:\\t3\\client\\src\\assets\\microfrontend\\omron' : 'dist',
+      outDir: 'dist',//isComponentBuild ? 'D:\\t3\\client\\src\\assets\\microfrontend\\omron' : 'dist',
       cssCodeSplit: false,
     },
     define: {
