@@ -1,9 +1,10 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { resolve } from "path";
 import { componentTagger } from "lovable-tagger";
 import { RENDER_FILE_NAME } from "./src/RenderConfig";
+
 export default defineConfig(({ mode }) => {
   const isComponentBuild = process.env.VITE_BUILD_MODE === "component";
   return {
@@ -21,8 +22,6 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-
-
     build: {
       lib: isComponentBuild
         ? {
@@ -35,13 +34,14 @@ export default defineConfig(({ mode }) => {
           output: {
             assetFileNames: "[name].[ext]",
             entryFileNames: "[name].js",
+            inlineDynamicImports: true,
           },
         } : undefined,
-      outDir: isComponentBuild ? 'D:\\t3\\client\\src\\assets\\microfrontend\\omron' : 'dist'
+      outDir: isComponentBuild ? 'D:\\t3\\client\\src\\assets\\microfrontend\\omron' : 'dist',
+      cssCodeSplit: false,
     },
     define: {
       "process.env.NODE_ENV": JSON.stringify("production"),
     }
-
   };
 });
