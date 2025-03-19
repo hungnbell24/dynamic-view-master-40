@@ -1,17 +1,44 @@
+
 import * as React from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 
 import { cn } from "@/lib/utils"
+import { RENDER_DIV_ID } from "@/RenderConfig"
 
 const Popover = PopoverPrimitive.Root
 
 const PopoverTrigger = PopoverPrimitive.Trigger
 
+// Custom portal that renders into #omron container
+const PopoverPortal = ({ 
+  children, 
+  ...props 
+}: PopoverPrimitive.PopoverPortalProps) => {
+  const [mounted, setMounted] = React.useState(false)
+  
+  React.useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
+  const container = mounted ? document.getElementById(RENDER_DIV_ID) : null
+
+  if (!container) {
+    return <PopoverPrimitive.Portal {...props}>{children}</PopoverPrimitive.Portal>
+  }
+
+  return (
+    <PopoverPrimitive.Portal container={container} {...props}>
+      {children}
+    </PopoverPrimitive.Portal>
+  )
+}
+
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
 >(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
-  <PopoverPrimitive.Portal>
+  <PopoverPortal>
     <PopoverPrimitive.Content
       ref={ref}
       align={align}
@@ -22,8 +49,8 @@ const PopoverContent = React.forwardRef<
       )}
       {...props}
     />
-  </PopoverPrimitive.Portal>
+  </PopoverPortal>
 ))
 PopoverContent.displayName = PopoverPrimitive.Content.displayName
 
-export { Popover, PopoverTrigger, PopoverContent }
+export { Popover, PopoverTrigger, PopoverContent, PopoverPortal }

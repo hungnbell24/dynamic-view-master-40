@@ -1,7 +1,9 @@
+
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
 
 import { cn } from "@/lib/utils"
+import { RENDER_DIV_ID } from "@/RenderConfig"
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -16,7 +18,31 @@ Drawer.displayName = "Drawer"
 
 const DrawerTrigger = DrawerPrimitive.Trigger
 
-const DrawerPortal = DrawerPrimitive.Portal
+// Custom portal that renders into #omron container
+const DrawerPortal = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Portal>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Portal>
+>(({ children, ...props }, ref) => {
+  const [mounted, setMounted] = React.useState(false)
+  
+  React.useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
+  const container = mounted ? document.getElementById(RENDER_DIV_ID) : null
+
+  if (!container) {
+    return <DrawerPrimitive.Portal {...props}>{children}</DrawerPrimitive.Portal>
+  }
+
+  return (
+    <DrawerPrimitive.Portal containerRef={{ current: container }} {...props}>
+      {children}
+    </DrawerPrimitive.Portal>
+  )
+})
+DrawerPortal.displayName = "DrawerPortal"
 
 const DrawerClose = DrawerPrimitive.Close
 

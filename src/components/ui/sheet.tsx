@@ -1,9 +1,11 @@
+
 import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { cva, type VariantProps } from "class-variance-authority"
 import { X } from "lucide-react"
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { RENDER_DIV_ID } from "@/RenderConfig"
 
 const Sheet = SheetPrimitive.Root
 
@@ -11,7 +13,30 @@ const SheetTrigger = SheetPrimitive.Trigger
 
 const SheetClose = SheetPrimitive.Close
 
-const SheetPortal = SheetPrimitive.Portal
+// Custom portal that renders into #omron container
+const SheetPortal = ({ 
+  children, 
+  ...props 
+}: SheetPrimitive.DialogPortalProps) => {
+  const [mounted, setMounted] = React.useState(false)
+  
+  React.useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
+  const container = mounted ? document.getElementById(RENDER_DIV_ID) : null
+
+  if (!container) {
+    return null
+  }
+
+  return (
+    <SheetPrimitive.Portal container={container} {...props}>
+      {children}
+    </SheetPrimitive.Portal>
+  )
+}
 
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,

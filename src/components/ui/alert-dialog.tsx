@@ -1,14 +1,39 @@
+
 import * as React from "react"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { RENDER_DIV_ID } from "@/RenderConfig"
 
 const AlertDialog = AlertDialogPrimitive.Root
 
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger
 
-const AlertDialogPortal = AlertDialogPrimitive.Portal
+// Custom portal that renders into #omron container
+const AlertDialogPortal = ({ 
+  children, 
+  ...props 
+}: AlertDialogPrimitive.AlertDialogPortalProps) => {
+  const [mounted, setMounted] = React.useState(false)
+  
+  React.useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
+  const container = mounted ? document.getElementById(RENDER_DIV_ID) : null
+
+  if (!container) {
+    return null
+  }
+
+  return (
+    <AlertDialogPrimitive.Portal container={container} {...props}>
+      {children}
+    </AlertDialogPrimitive.Portal>
+  )
+}
 
 const AlertDialogOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
