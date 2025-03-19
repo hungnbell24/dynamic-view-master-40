@@ -37,7 +37,7 @@ const DrawerPortal = React.forwardRef<
   }
 
   return (
-    <DrawerPrimitive.Portal containerRef={{ current: container }} {...props}>
+    <DrawerPrimitive.Portal container={container} {...props}>
       {children}
     </DrawerPrimitive.Portal>
   )
@@ -140,3 +140,4 @@ export {
   DrawerTitle,
   DrawerDescription,
 }
+
