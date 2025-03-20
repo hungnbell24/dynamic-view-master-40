@@ -1,4 +1,5 @@
 
+import { RENDER_COMPONENT_TAG_NAME, RENDER_DIV_ID } from '@/RenderConfig';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
@@ -15,25 +16,25 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Check for saved theme in localStorage or use system preference
     const savedTheme = localStorage.getItem('theme') as Theme;
     if (savedTheme) return savedTheme;
-    
+
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
   useEffect(() => {
     // Update localStorage when theme changes
     localStorage.setItem('theme', theme);
-    
+
     // Add or remove dark class to shadow root or document element
     const updateTheme = () => {
       const root = document.querySelector(`:root`);
-      const shadowRoot = document.querySelector('omron-react-web-component')?.shadowRoot;
+      const shadowRoot = document.querySelector(RENDER_COMPONENT_TAG_NAME)?.shadowRoot;
 
       if (shadowRoot) {
         // We're inside a web component, update the shadow root
         if (theme === 'dark') {
-          shadowRoot.host.classList.add('dark');
+          shadowRoot.getElementById(RENDER_DIV_ID).classList.add('dark');
         } else {
-          shadowRoot.host.classList.remove('dark');
+          shadowRoot.getElementById(RENDER_DIV_ID).classList.remove('dark');
         }
       } else if (root) {
         // We're in a regular document, update the html element

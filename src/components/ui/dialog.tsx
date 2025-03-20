@@ -4,25 +4,25 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { RENDER_DIV_ID } from "@/RenderConfig"
+import { RENDER_DIV_ID, RENDER_COMPONENT_TAG_NAME } from "@/RenderConfig"
 
 const Dialog = DialogPrimitive.Root
 
 const DialogTrigger = DialogPrimitive.Trigger
 
 // Create custom portal that renders into #omron container
-const DialogPortal = ({ 
-  children, 
-  ...props 
+const DialogPortal = ({
+  children,
+  ...props
 }: DialogPrimitive.DialogPortalProps) => {
   const [mounted, setMounted] = React.useState(false)
-  
+
   React.useEffect(() => {
     setMounted(true)
     return () => setMounted(false)
   }, [])
-
-  const container = mounted ? document.getElementById(RENDER_DIV_ID) : null
+  const shadowRootEL = document.querySelector(RENDER_COMPONENT_TAG_NAME);
+  const container = mounted ? (shadowRootEL ? shadowRootEL.shadowRoot : null) : null
 
   if (!container) {
     return <DialogPrimitive.Portal {...props}>{children}</DialogPrimitive.Portal>
