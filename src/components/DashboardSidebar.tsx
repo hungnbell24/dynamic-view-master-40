@@ -32,6 +32,7 @@ import {
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useTheme } from './theme/ThemeProvider';
+import { cn } from '@/lib/utils';
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
@@ -57,17 +58,19 @@ const DashboardSidebar: React.FC = () => {
   const { theme } = useTheme();
   const { state, setOpen } = useSidebar();
   const isMobile = useIsMobile();
-  const textColor = (item): String => {
-    return isActive(item.path) ?
-      (theme === 'dark' ? 'text-white' : 'text-black') + ' font-medium' :
-      (theme === 'dark' ? 'text-gray-400' : 'text-black') + ' font-normal'
-  }
+  const isDark = theme === 'dark';
+  
+  const textColorClass = (path: string): string => {
+    return isActive(path) 
+      ? cn(isDark ? 'text-white' : 'text-black', 'font-medium') 
+      : cn(isDark ? 'text-gray-400' : 'text-gray-600', 'font-normal');
+  };
 
   const [isSideBarOpen, setIsSideBarOpen] = React.useState(true);
 
-  const hoverTextColor = (): String => {
-    return theme === 'dark' ? 'hover:bg-white/5' : 'text-black';
-  }
+  const hoverClass = (): string => {
+    return cn(isDark ? 'hover:bg-white/5' : 'hover:bg-gray-100');
+  };
 
   const handleToggle = (data: ToggleData) => {
     setIsSideBarOpen(data == 'open');
@@ -85,16 +88,21 @@ const DashboardSidebar: React.FC = () => {
   };
 
   return (
-    <Sidebar className="border-r border-white/5" collapsible="icon">
-
+    <Sidebar 
+      className={cn(
+        "border-r", 
+        isDark ? "border-sidebar-border bg-sidebar text-sidebar-foreground" : "border-gray-200 bg-white text-gray-800"
+      )} 
+      collapsible="icon"
+    >
       <SidebarHeader className="py-6 flex justify-center">
         <div className="flex items-center space-x-2" >
           <div className="h-8 w-8 rounded-md bg-dashboard-highlight flex items-center justify-center" style={{ minWidth: '2rem' }}>
-            <span className={"font-bold text-white"} >T3</span>
+            <span className="font-bold text-white">T3</span>
           </div>
           {isSideBarOpen && (
             <div style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              <span className={"font-medium text-lg "} >Telehub</span>
+              <span className="font-medium text-lg">Telehub</span>
             </div>
           )}
 
@@ -115,21 +123,21 @@ const DashboardSidebar: React.FC = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label} className="my-1">
                   <SidebarMenuButton
                     asChild
-                    className={`
-                      group py-2 ${hoverTextColor()} rounded-md
-                      ${textColor(item)}
-                    `}
-                    tooltip={item.label} // Add tooltip for collapsed state
+                    className={cn(
+                      "group py-2 rounded-md",
+                      hoverClass(),
+                      textColorClass(item.path)
+                    )}
+                    tooltip={item.label}
                     onClick={handleMenuItemClick}
                   >
-                    <Link to={item.path} className="flex items-center  py-1 px-3 ">
+                    <Link to={item.path} className="flex items-center py-1 px-3">
                       <item.icon
-                        className={`mr-3 h-5 w-5 ${textColor(item.path)}`}
+                        className={cn("mr-3 h-5 w-5", textColorClass(item.path))}
                       />
                       <span>{item.label}</span>
                     </Link>
@@ -141,24 +149,25 @@ const DashboardSidebar: React.FC = () => {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className={isSideBarOpen ? "px-3 " : ""}  >
+      <SidebarFooter className={isSideBarOpen ? "px-3" : ""}>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-
               {bottomMenuItems.map((item) => (
                 <SidebarMenuItem key={item.label} className="my-1">
                   <SidebarMenuButton
                     asChild
-                    className={`
-                      group py-2 ${hoverTextColor()} rounded-md ${textColor(item)}
-                    `}
-                    tooltip={item.label} // Add tooltip for collapsed state
+                    className={cn(
+                      "group py-2 rounded-md",
+                      hoverClass(),
+                      textColorClass(item.path)
+                    )}
+                    tooltip={item.label}
                     onClick={handleMenuItemClick}
                   >
                     <Link to={item.path} className={"flex items-center py-1" + (isSideBarOpen ? " px-3" : "")}>
                       <item.icon
-                        className={`mr-3 h-5 w-5 ${textColor(item.path)}`}
+                        className={cn("mr-3 h-5 w-5", textColorClass(item.path))}
                       />
                       <span>{item.label}</span>
                     </Link>
@@ -170,10 +179,12 @@ const DashboardSidebar: React.FC = () => {
               <SidebarMenuItem className="my-1">
                 <SidebarMenuButton
                   asChild
-                  className={`
-                    group py-2 ${hoverTextColor()} rounded-md ${textColor({ path: '/unknown' })}
-                  `}
-                  tooltip="Logout" // Add tooltip for collapsed state
+                  className={cn(
+                    "group py-2 rounded-md",
+                    hoverClass(),
+                    textColorClass('/unknown')
+                  )}
+                  tooltip="Logout"
                   onClick={handleMenuItemClick}
                 >
                   <Button
@@ -181,7 +192,7 @@ const DashboardSidebar: React.FC = () => {
                     variant="ghost"
                     className="w-full flex items-center px-3 py-1 justify-start"
                   >
-                    <LogOut className={"mr-3 h-5 w-5 " + textColor({ path: '/unknown' })} />
+                    <LogOut className={cn("mr-3 h-5 w-5", textColorClass('/unknown'))} />
                     <span>Logout</span>
                   </Button>
                 </SidebarMenuButton>
@@ -190,8 +201,8 @@ const DashboardSidebar: React.FC = () => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <div className={"mt-8  overflow-auto" + (isSideBarOpen ? "px-3" : "") + " py-6"} >
-          <div className="flex items-center space-x-3 " style={{ justifyContent: (isSideBarOpen ? '' : "center") }}>
+        <div className={"mt-8 overflow-auto" + (isSideBarOpen ? " px-3" : "") + " py-6"} style={{ justifyContent: (isSideBarOpen ? '' : "center") }}>
+          <div className="flex items-center space-x-3" style={{ justifyContent: (isSideBarOpen ? '' : "center") }}>
             <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
@@ -201,14 +212,14 @@ const DashboardSidebar: React.FC = () => {
             </div>
             {isSideBarOpen && (
               <div className='relative' style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                <p className={"text-sm font-medium overflow-hidden " + textColor({ path: '/unknown' })} >Jansen Sitompul</p>
-                <p className={"text-xs " + textColor({ path: '/unknown' })}>Admin</p>
+                <p className={cn("text-sm font-medium overflow-hidden", textColorClass('/unknown'))}>Jansen Sitompul</p>
+                <p className={cn("text-xs", textColorClass('/unknown'))}>Admin</p>
               </div>
             )}
           </div>
         </div>
       </SidebarFooter>
-    </Sidebar >
+    </Sidebar>
   );
 };
 
