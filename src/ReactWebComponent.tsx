@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import styles from "./index.css?inline"; // Load CSS as a string
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import { RENDER_COMPONENT_TAG_NAME, RENDER_DIV_ID } from "./RenderConfig.ts";
+import { ToastProvider } from "./components/toast/ToastProvider.tsx";
 
 // Create a Web Component class
 class ReactElement extends HTMLElement {
@@ -51,7 +52,9 @@ class ReactElement extends HTMLElement {
         const root = ReactDOM.createRoot(mountPoint);
         root.render(
             <ThemeProvider>
-                <App />
+                <ToastProvider>
+                    <App />
+                </ToastProvider>
             </ThemeProvider>
         );
     }

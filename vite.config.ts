@@ -37,8 +37,9 @@ export default defineConfig(({ mode }) => {
             inlineDynamicImports: true,
           },
         } : undefined,
-      outDir: 'dist',//isComponentBuild ? 'D:\\t3\\client\\src\\assets\\microfrontend\\omron' : 'dist',
+      outDir: 'dist',
       cssCodeSplit: false,
+      cssMinify: isComponentBuild ? false : true,
     },
     define: {
       "process.env.NODE_ENV": JSON.stringify("production"),
