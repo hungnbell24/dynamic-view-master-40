@@ -48,6 +48,12 @@ class ReactElement extends HTMLElement {
         mountPoint.id = RENDER_DIV_ID;
         this.shadowRoot.appendChild(mountPoint);
         
+        // Set initial theme class based on localStorage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            this.classList.add('dark');
+        }
+        
         // Create React root and render app
         const root = ReactDOM.createRoot(mountPoint);
         root.render(

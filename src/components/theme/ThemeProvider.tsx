@@ -23,13 +23,29 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Update localStorage when theme changes
     localStorage.setItem('theme', theme);
     
-    // Add or remove dark class to html element
-    const html = document.documentElement;
-    if (theme === 'dark') {
-      html.classList.add('dark');
-    } else {
-      html.classList.remove('dark');
-    }
+    // Add or remove dark class to shadow root or document element
+    const updateTheme = () => {
+      const root = document.querySelector(`:root`);
+      const shadowRoot = document.querySelector('omron-react-web-component')?.shadowRoot;
+
+      if (shadowRoot) {
+        // We're inside a web component, update the shadow root
+        if (theme === 'dark') {
+          shadowRoot.host.classList.add('dark');
+        } else {
+          shadowRoot.host.classList.remove('dark');
+        }
+      } else if (root) {
+        // We're in a regular document, update the html element
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    };
+
+    updateTheme();
   }, [theme]);
 
   return (
