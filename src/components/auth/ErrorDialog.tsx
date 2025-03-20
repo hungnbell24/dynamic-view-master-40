@@ -22,10 +22,10 @@ const ErrorDialog: React.FC<ErrorDialogProps> = ({
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg sm:rounded-lg">
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold">Login Failed</DialogTitle>
-          <DialogDescription className="text-sm text-muted-foreground">{errorMessage}</DialogDescription>
+          <DialogTitle>Login Failed</DialogTitle>
+          <DialogDescription>{errorMessage}</DialogDescription>
         </DialogHeader>
         <div className="flex justify-end">
           <Button onClick={onClose}>Close</Button>
