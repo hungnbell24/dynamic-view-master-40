@@ -17,13 +17,12 @@ Drawer.displayName = "Drawer"
 
 const DrawerTrigger = DrawerPrimitive.Trigger
 
-// Custom portal that renders into #omron container
 const DrawerPortal = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Portal>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Portal>
 >(({ children, ...props }, ref) => {
   const [mounted, setMounted] = React.useState(false)
-  
+
   React.useEffect(() => {
     setMounted(true)
     return () => setMounted(false)

@@ -10,13 +10,12 @@ const AlertDialog = AlertDialogPrimitive.Root
 
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger
 
-// Custom portal that renders into #omron container
-const AlertDialogPortal = ({ 
-  children, 
-  ...props 
+const AlertDialogPortal = ({
+  children,
+  ...props
 }: AlertDialogPrimitive.AlertDialogPortalProps) => {
   const [mounted, setMounted] = React.useState(false)
-  
+
   React.useEffect(() => {
     setMounted(true)
     return () => setMounted(false)

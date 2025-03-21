@@ -10,7 +10,6 @@ const Dialog = DialogPrimitive.Root
 
 const DialogTrigger = DialogPrimitive.Trigger
 
-// Create custom portal that renders into #omron container
 const DialogPortal = ({
   children,
   ...props

@@ -9,13 +9,12 @@ const Popover = PopoverPrimitive.Root
 
 const PopoverTrigger = PopoverPrimitive.Trigger
 
-// Custom portal that renders into #omron container
-const PopoverPortal = ({ 
-  children, 
-  ...props 
+const PopoverPortal = ({
+  children,
+  ...props
 }: PopoverPrimitive.PopoverPortalProps) => {
   const [mounted, setMounted] = React.useState(false)
-  
+
   React.useEffect(() => {
     setMounted(true)
     return () => setMounted(false)

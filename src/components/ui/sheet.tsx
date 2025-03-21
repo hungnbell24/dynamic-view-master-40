@@ -12,13 +12,12 @@ const SheetTrigger = SheetPrimitive.Trigger
 
 const SheetClose = SheetPrimitive.Close
 
-// Custom portal that renders into #omron container
-const SheetPortal = ({ 
-  children, 
-  ...props 
+const SheetPortal = ({
+  children,
+  ...props
 }: SheetPrimitive.DialogPortalProps) => {
   const [mounted, setMounted] = React.useState(false)
-  
+
   React.useEffect(() => {
     setMounted(true)
     return () => setMounted(false)

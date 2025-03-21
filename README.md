@@ -54,25 +54,18 @@ This project is built with .
 
 ## Build reactweb component
 
-- index.html, main.tsx: change name of root id
+- index.html: change name of root id
 - vite.config.ts:
 ```code
-build: {
-   ...
-    outDir: 'path to build folder'
-  ...
-  }
-  
-- ReactWebComponent.tsx: add name of web component to defineCustomElement. Ex omron-react-web-component
+npm run build-component
 ```
 
 
 
 ## embed to angular
 
-- add ReactWebComponent.js, style.css to index.html
-- main.tsx: change content to "import "./ReactWebComponent";"
-- xxxModule.ts 
+- add ReactWebComponent.js to index.html
+- xxxModule.ts change content: 
 ```code 
     "import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';"
     .....
