@@ -65,7 +65,7 @@ npm run build-component
 ```
 
 ## Embed to angular
-- Copy ReactWebComponent.js assets folder
+- Copy ReactWebComponent.js to assets folder
 - Embed ReactWebComponent.js to index.html
 - Change content of xxxModule.ts(ex: iContactModule.ts) file: 
 ```code 
