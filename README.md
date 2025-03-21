@@ -55,17 +55,15 @@ This project is built with .
 ## Build reactweb component
 
 - index.html: change name of root id
-- vite.config.ts:
+- build
 ```code
 npm run build-component
 ```
 
-
-
 ## embed to angular
-
-- add ReactWebComponent.js to index.html
-- xxxModule.ts change content: 
+- Copy ReactWebComponent.js assets folder
+- Embed ReactWebComponent.js to index.html
+- Change content of xxxModule.ts(ex: iContactModule.ts) file: 
 ```code 
     "import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';"
     .....
