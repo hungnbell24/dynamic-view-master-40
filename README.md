@@ -53,14 +53,18 @@ This project is built with .
 
 
 ## Build reactweb component
+- RenderConfig.ts: Change name of root id
+```code
+export const RENDER_DIV_ID: string = PROJECT_NAME; //example "omron";
+```
 
-- index.html: change name of root id
+- index.html: change name of root id //example "omron";
 - build
 ```code
 npm run build-component
 ```
 
-## embed to angular
+## Embed to angular
 - Copy ReactWebComponent.js assets folder
 - Embed ReactWebComponent.js to index.html
 - Change content of xxxModule.ts(ex: iContactModule.ts) file: 
@@ -72,7 +76,7 @@ npm run build-component
     ....
 ```
 
-- add tag  to template file example 
+- Add tag to template file. Example 
 ```code
     <omron-react-web-component></omron-react-web-component>
 ```
