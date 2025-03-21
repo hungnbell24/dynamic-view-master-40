@@ -65,11 +65,14 @@ npm run build-component
 ```
 
 ## Embed to angular
-- Copy ReactWebComponent.js to assets folder
-- Embed ReactWebComponent.js to index.html
+- Copy ReactWebComponent.js to assets folder. Example: /assets/microfrontend/omron/ReactWebComponent.js
+- Embed ReactWebComponent.js to index.html at the end of body tag. Example:
+```code
+    <script src="./assets/microfrontend/omron/ReactWebComponent.js"></script>
+```
 - Change content of xxxModule.ts(ex: iContactModule.ts) file: 
 ```code 
-    "import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';"
+    import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
     .....
     @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
