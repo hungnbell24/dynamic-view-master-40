@@ -19,9 +19,9 @@ const MobileSidebarToggle = () => {
   if (!isMobile) return null;
 
   return (
-    <Button 
-      variant="ghost" 
-      size="icon" 
+    <Button
+      variant="ghost"
+      size="icon"
       className={cn(
         "md:hidden fixed left-4 top-4 z-50",
         isDark ? "text-white" : "text-black"
@@ -52,14 +52,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 const DashboardLayoutContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
-  
+
   return (
     <SidebarProvider defaultOpen={true}>
       <div className={cn(
         "flex min-h-screen w-full overflow-hidden",
         isDark ? "bg-background text-foreground" : "bg-white text-gray-900"
       )}>
-        <DashboardSidebar />
+        {/* <DashboardSidebar /> */}
         <main className="flex-1 overflow-y-auto">
           <MobileSidebarToggle />
           <div className="absolute top-4 right-6 z-10">

@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -206,30 +205,30 @@
   }
 
   /* Dialog styles for Shadow DOM compatibility */
-  :host [data-state="open"][role="dialog"] {
+  /* :host [data-state="open"][role="dialog"] {
     position: fixed;
     z-index: 50;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+  } */
 
-  :host [data-state="open"][role="dialog"] .fixed {
+  /* :host [data-state="open"][role="dialog"] .fixed {
     position: fixed;
     inset: 0;
     z-index: 50;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
-  }
+  } */
 
-  :host [role="dialog"] .bg-background {
+  /* :host [role="dialog"] .bg-background {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     border-radius: 0.5rem;
     border: 1px solid hsl(var(--border));
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  }
+  } */
 
   :host [role="dialog"] button {
     display: inline-flex;
