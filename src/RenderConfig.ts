@@ -6,4 +6,4 @@ export const RENDER_DIV_ID: string = "omron";
 export const RENDER_COMPONENT_TAG_NAME: string = RENDER_DIV_ID + "-react-web-component";
 
 // Tên file build
-export const RENDER_FILE_NAME = "ReactWebComponent";
+export const RENDER_FILE_NAME: string = "ReactWebComponent";
