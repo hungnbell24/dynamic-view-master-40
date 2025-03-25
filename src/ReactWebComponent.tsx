@@ -4,11 +4,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import styles from "./index.css?inline"; // Load CSS as a string
 import { ThemeProvider } from "./components/theme/ThemeProvider";
-import { RENDER_COMPONENT_TAG_NAME, RENDER_DIV_ID } from "./RenderConfig.ts";
+import { ON_DATA_CHANGE_EVENT_NAME, RENDER_COMPONENT_TAG_NAME, RENDER_DIV_ID } from "./RenderConfig.ts";
 import { ToastProvider } from "./components/toast/ToastProvider.tsx";
+import { AppPageComponentName } from "./lib/Interfaces.ts";
 
 // Create a Web Component class
 class ReactElement extends HTMLElement {
+    private root: ReactDOM.Root | null = null;
+    private _name: string = '';
+    private _data: string = '{}';
+
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
@@ -23,7 +28,9 @@ class ReactElement extends HTMLElement {
         // Append style to shadow DOM
         this.shadowRoot.appendChild(styleTag);
     }
-
+    static get observedAttributes() {
+        return ['name', 'data'];
+    }
     // Process CSS by extracting :root variables and making them available in the shadow DOM
     processStyles(cssText) {
         // Extract all CSS variable definitions from :root
@@ -42,6 +49,25 @@ class ReactElement extends HTMLElement {
         return `:host {${cssVariables}}\n${processedCss}`;
     }
 
+
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+        if (oldValue !== newValue) {
+            switch (name) {
+                case 'name':
+                    this._name = newValue;
+                    break;
+                case 'data':
+                    try {
+                        this._data = JSON.parse(newValue);
+                    } catch (e) {
+                        this._data = newValue;
+                    }
+                    break;
+            }
+            this.renderApp();
+        }
+    }
+
     connectedCallback() {
         // Create a mounting point
         const mountPoint = document.createElement("div");
@@ -56,14 +82,36 @@ class ReactElement extends HTMLElement {
         }
 
         // Create React root and render app
-        const root = ReactDOM.createRoot(mountPoint);
-        root.render(
+        this.root = ReactDOM.createRoot(mountPoint);
+        this.renderApp();
+    }
+
+    renderApp() {
+        if (!this.root) return;
+        this.root.render(
             <ThemeProvider>
                 <ToastProvider>
-                    <App />
+                    <App
+                        initialName={this._name as AppPageComponentName}
+                        initialData={this._data}
+                        onDataChangeCallback={(newData) => {
+                            // Dispatch custom event để gửi dữ liệu về Angular
+                            const event = new CustomEvent(ON_DATA_CHANGE_EVENT_NAME, {
+                                detail: newData,
+                                bubbles: true
+                            });
+                            this.dispatchEvent(event);
+                        }} />
                 </ToastProvider>
             </ThemeProvider>
         );
+    }
+
+    disconnectedCallback() {
+        if (this.root) {
+            this.root.unmount();
+            this.root = null;
+        }
     }
 }
 

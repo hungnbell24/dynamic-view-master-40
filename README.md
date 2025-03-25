@@ -57,7 +57,14 @@ This project is built with .
 ```code
 export const RENDER_DIV_ID: string = PROJECT_NAME; //example "omron";
 ```
+-- Send message To Angular 
+```code
+    const {  onDataChange } = useAppContext();
+    onDataChange({test: 1});
+```
 
+## Build ReactWebComponent.js
+- npm run build-component
 - index.html: change name of root id //example "omron";
 - build
 ```code
@@ -81,5 +88,5 @@ npm run build-component
 
 - Add tag to template file. Example 
 ```code
-    <omron-react-web-component></omron-react-web-component>
+    <omron-react-web-component [attr.data]="jsonData" [attr.name]="reactComName" (onDataChangeCallback)="handleReactDataChange($event)"></omron-react-web-component>
 ```

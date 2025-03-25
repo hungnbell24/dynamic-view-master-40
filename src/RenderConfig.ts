@@ -7,3 +7,5 @@ export const RENDER_COMPONENT_TAG_NAME: string = RENDER_DIV_ID + "-react-web-com
 
 // Tên file build
 export const RENDER_FILE_NAME: string = "ReactWebComponent";
+
+export const ON_DATA_CHANGE_EVENT_NAME: string = "onDataChangeCallback";

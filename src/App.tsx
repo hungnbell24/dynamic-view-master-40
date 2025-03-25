@@ -11,6 +11,8 @@ import Email from "./pages/Email";
 import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { AppProvider } from "./context/AppDataContext";
+import { IAppInterface } from "./lib/Interfaces";
 
 const queryClient = new QueryClient();
 
@@ -85,4 +87,21 @@ const App = () => (
   </QueryClientProvider>
 );
 
-export default App;
+// export default App;
+
+
+// const AppWrapper: React.FC = (appProps: IAppInterface) => {
+const AppWrapper = (appProps: IAppInterface) => {
+
+  return (
+    <AppProvider
+      initialName={appProps.initialName}
+      initialData={appProps.initialData}
+      onDataChangeCallback={appProps.onDataChangeCallback}
+    >
+      <App />
+    </AppProvider>
+  );
+};
+
+export default AppWrapper;
